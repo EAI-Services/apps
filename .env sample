@@ -1,0 +1,10 @@
+PORT=8000
+DB="testrxmd"
+DB_USER="root"
+DB_PW="12345"
+PW="12345"
+DB_HOST="localhost"
+MAIL_USER=
+MAIL_PW=
+FROM=
+TO=

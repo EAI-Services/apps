@@ -1,0 +1,20 @@
+.one {
+  margin-top: 1%
+}
+.two{
+  margin-top: 2.5%
+}
+.five {
+  margin-top: 5%
+}
+.btn-xlg {
+    padding: 13px 20px !important;
+    font-size: 20px !important;
+    line-height: normal !important;
+    -webkit-border-radius: 8px !important;
+    -moz-border-radius: 8px !important;
+    border-radius: 8px !important;   
+}
+.btn:hover {
+  background-color: black !important;
+}

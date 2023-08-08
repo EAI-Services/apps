@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width">
+	<title>repl.it</title>
+	<link rel="apple-touch-icon" sizes="180x180" href="/admin/images/apple-touch-icon.png">
+	<link rel="icon" type="image/png" sizes="32x32" href="/admin/images/favicon-32x32.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="/admin/images/favicon-16x16.png">
+	<link rel="manifest" href="/admin/css/site.webmanifest">
+	<link href="/admin/css/style.css" rel="stylesheet" type="text/css" />
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css" integrity="sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I"
+	 crossorigin="anonymous">
+
+</head>
+
+<body>
+
+	<!-- PAGE 1 -->
+	<div id="page1" class='text-center'>
+		<h1 class="display-1">EAI ADMIN</h1>
+		<h5 class='five'>Please Enter Admin Password To Continue</h5>
+		<form action="">
+			<input type="password" name="password" id="password" class='two'>
+      <input type="submit" value="Continue" id='submit1' class='btn-success'>
+    </form>
+    <h5 class="text-danger two d-none" id='failure'>Incorrect Password - Try Again</h5>
+	</div>
+
+<!-- PAGE 2 -->
+  <div id="page2" class='text-center d-none'>
+    <h1>Hey Steve!<br> Which app would you like to make changes to?</h3>
+    <button type='button' class='btn btn-xlg btn-secondary five' id='snow'>Snow Removal</button><br>
+    <button type='button' class='btn btn-xlg two btn-secondary text-white' id='lawn'>Lawn Care</button>
+  </div>
+
+<!-- PAGE 3 -->
+  <div id="page3" class='text-center d-none'>
+
+    <!-- DATA BTNS -->
+    <button type='button' class='btn btn-xlg btn-secondary two' id='currentData'>View Jobs Left This Week</button>
+    <button type='button' class='btn btn-xlg btn-secondary two' id='mainData'>View Master Jobs List</button><br>
+    <button type='button' class='btn btn-xlg btn-warning two' id='resetData'>Reset the data for this week</button><br>
+
+    <a href="http://localhost:8000/lawn/excel"><button type='button' class='btn btn-xlg btn-primary two' id='excelReport'>Download Excel Report</button></a>
+    <br
+
+    <!-- ADD NEW CONTRACTOR BTN -->
+    <button type='button' class='btn btn-xlg btn-secondary five' id='addNewContractor'>Add New Contractor</button><br>
+
+    <!-- ADD NEW CONTRACTOR FORM -->
+    <form action="http://localhost:8000/lawn/newContractor"  method="POST" class='d-none' id='newContractorForm'>
+      <input type="text" id="contractor" class='one' name="contractor" placeholder="Contractor Name"><br>
+      <input type="number" id="contractorID" min='1011' class='one' name="contractorID" placeholder="Assign Contractor ID #"><br>
+      <div class="form-group">
+        <textarea class="form-control one" id="locations" placeholder="Locations - Separate multiple locations with a comma and a space --> Santa Claus, Poseyville, Tell City" rows="3" name='locations'></textarea>
+      </div>
+      <input type="submit" value="Submit" class='one'>
+    </form>
+
+    <!-- DELETE CONTRACTOR BTN -->
+    <button type='button' class='btn btn-xlg btn-secondary two' id='deleteContractor'>Delete Contractor</button><br>
+
+    <!-- DELETE CONTRACTOR FORM -->
+    <form action="http://localhost:8000/lawn/deleteContractor"  method="POST" class='d-none' id='deleteContractorForm'>
+      <input type="number" min='1001' class='one' id="deleteID" name="id" placeholder="Contractor ID #"><br>
+      <input type="submit" value="Submit" class='one'>
+    </form>
+
+    <!-- ADD LOCATION BTN -->
+    <button type='button' class='btn btn-xlg btn-secondary two' id='addLocation'>Add Location to Contractor</button><br>
+
+    <!-- ADD LOCATION FORM -->
+    <form action="http://localhost:8000/lawn/addLocation"  method="POST" class='d-none' id='addLocationForm'>
+      <input type="number" min='1001' class='one' name="id" placeholder="Contractor ID #"><br>
+      <input type="text" name="name" id="locationToAdd" placeholder="Location Name" class='one' ><br>
+      <input type="submit" value="Submit" class='one'>
+    </form>
+
+    <!-- DELETE LOCATION BTN -->
+    <button type='button' class='btn btn-xlg btn-secondary two' id='deleteLocation'>Delete Location from Contractor</button><br>
+
+    <!-- DELETE LOCATION FORM -->
+    <form action="http://localhost:8000/lawn/deleteLocation"  method="POST" class='d-none' id='deleteLocationForm'>
+      <input type="number" min='1001' class='one' name="id" placeholder="Contractor ID #"><br>
+      <input type="text" name="name" id="locationToAdd" placeholder="Exact Location Name" class='one' ><br>
+      <input type="submit" value="Submit" class='one'>
+    </form>
+  </div>
+
+<!-- PAGE 4 -->
+  <div id="page4" class='text-center d-none'>
+
+    <!-- DATA BTNS -->
+    <button type='button' class='btn btn-xlg btn-secondary two' id='snowData'>View Data</button><br>
+    
+    <!-- ADD NEW CONTRACTOR BTN -->
+    <button type='button' class='btn btn-xlg btn-secondary five' id='addNewContractor2'>Add New Contractor</button><br>
+
+    <!-- ADD NEW CONTRACTOR FORM -->
+    <form action="http://localhost:8000/snow/newContractor"  method="POST" class='d-none' id='newContractorForm2'>
+      <input type="text" class='one' name="contractor" placeholder="Contractor Name"><br>
+      <input type="number" min='1001' class='one' name="contractorID" placeholder="Assign Contractor ID #"><br>
+      <div class="form-group">
+        <textarea class="form-control one" placeholder="Locations - Separate multiple locations with a comma and a space --> Santa Claus, Poseyville, Tell City" rows="3" name='locations'></textarea>
+      </div>
+      <input type="submit" value="Submit" class='one'>
+    </form>
+
+    <!-- DELETE CONTRACTOR BTN -->
+    <button type='button' class='btn btn-xlg btn-secondary two' id='deleteContractor2'>Delete Contractor</button><br>
+
+    <!-- DELETE CONTRACTOR FORM -->
+    <form action="http://localhost:8000/snow/deleteContractor"  method="POST" class='d-none' id='deleteContractorForm2'>
+      <input type="number" min='1001' class='one' name="id" placeholder="Contractor ID #"><br>
+      <input type="submit" value="Submit" class='one'>
+    </form>
+
+    <!-- ADD LOCATION BTN -->
+    <button type='button' class='btn btn-xlg btn-secondary two' id='addLocation2'>Add Location to Contractor</button><br>
+
+    <!-- ADD LOCATION FORM -->
+    <form action="http://localhost:8000/snow/addLocation"  method="POST" class='d-none' id='addLocationForm2'>
+      <input type="number" min='1001' class='one' name="id" placeholder="Contractor ID #"><br>
+      <input type="text" name="name" placeholder="Location Name" class='one' ><br>
+      <input type="submit" value="Submit" class='one'>
+    </form>
+
+    <!-- DELETE LOCATION BTN -->
+    <button type='button' class='btn btn-xlg btn-secondary two' id='deleteLocation2'>Delete Location from Contractor</button><br>
+
+    <!-- DELETE LOCATION FORM -->
+    <form action="http://localhost:8000/snow/deleteLocation"  method="POST" class='d-none' id='deleteLocationForm2'>
+      <input type="number" min='1001' class='one' name="id" placeholder="Contractor ID #"><br>
+      <input type="text" name="name" placeholder="Exact Location Name" class='one' ><br>
+      <input type="submit" value="Submit" class='one'>
+    </form>
+
+  </div>
+
+	<!-- jQuery library -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+	<!-- Latest compiled JavaScript -->
+	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+	 crossorigin="anonymous"></script>
+
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.min.js" integrity="sha384-oesi62hOLfzrys4LxRF63OJCXdXDipiYWBnvTl9Y9/TRlw5xlKIEHpNyvvDShgf/"
+	 crossorigin="anonymous"></script>
+
+	<script src="/admin/js/script.js"></script>
+
+</body>
+
+</html>

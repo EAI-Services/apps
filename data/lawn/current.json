@@ -1,0 +1,74 @@
+{
+    "1001": {
+        "name": "EAI",
+        "locations": [
+            "North Park : 4550 N First Ave, Evansville IN",
+            "Princeton : 1506 W Broadway, Princeton IN",
+            "Henderson Downtown : 300 2nd St, Henderson KY",
+            "Madisonville Downtown : 149 S Main St, Madisonville KY",
+            "Madisonville Northside : 1389 Whittington Drive, Madisonville KY",
+            "5/3 Morganfield : 250 N Morgan St, Morganfield KY"
+        ]
+    },
+    "1003": {
+        "name": "Hank's Lawn Care",
+        "locations": []
+    },
+    "1004": {
+        "name": "Maxedon",
+        "locations": []
+    },
+    "1005": {
+        "name": "Bells Built",
+        "locations": [
+            "College Mall : 3200 E Third St, Bloomington IN",
+            "Whitehall Plaza : 3415 W 3rd St, Bloomington IN"
+        ]
+    },
+    "1006": {
+        "name": "Simply The Best LCS",
+        "locations": []
+    },
+    "1007": {
+        "name": "Country Side LLC",
+        "locations": [
+            "Sullivan : 201 W Washington St, Sullivan IN"
+        ]
+    },
+    "1009": {
+        "name": "C & C - Crown Hill Company",
+        "locations": [
+            "Morganfield : 250 North Morgan St, Morganfield KY"
+        ]
+    },
+    "1010": {
+        "name": "Cornerstone Lawn Care",
+        "locations": []
+    },
+    "1011": {
+        "name": "Veteran Land Care LLC",
+        "locations": [
+            "Oakland City : 117 North Main St, Oakland City IN"
+        ]
+    },
+    "1012": {
+        "name": "Brescher Landscaping & Lawn Service",
+        "locations": [
+            "Jasper : 305 Hwy 231 South, Jasper IN"
+        ]
+    },
+    "1013": {
+        "name": "Haggard Mowing Services",
+        "locations": []
+    },
+    "1014": {
+        "name": "Bluegrass Lawncare",
+        "locations": []
+    },
+    "1015": {
+        "name": "Final Touch Landscaping",
+        "locations": [
+            "Mount Vernon IL : 2711 Broadway St, Mount Vernon IL"
+        ]
+    }
+}
