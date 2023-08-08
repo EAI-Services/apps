@@ -1,5 +1,5 @@
 PORT=8000
-DB="testrxmd"
+DB="test"
 DB_USER="root"
 DB_PW="12345"
 PW="12345"
