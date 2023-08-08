@@ -38,6 +38,10 @@ app.use((req, res, next) => {
 //----------*******-----------
 //--------App Routes----------
 //----------*******-----------
+app.get("/", (req, res) => {
+  res.sendFile(__dirname + "/views/index.html");
+});
+
 app.get("/snow", (req, res) => {
   res.sendFile(__dirname + "/views/snow/index.html");
 });
@@ -368,6 +372,9 @@ app.post('/lawn/deleteLocation', (req, res) => {
   res.status(200).json(data);
 });
 
+app.get("*", (req, res) => {
+  res.redirect('/');
+});
 // listen for requests :)
 const listener = app.listen(process.env.PORT, () => {
   console.log("Your app is listening on port " + listener.address().port);
