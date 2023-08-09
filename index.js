@@ -338,7 +338,7 @@ app.post('/lawn/newContractor', (req, res) => {
   let data = lawnDataReader()
   let newEntry = { name: name, locations: locations };
   data[id] = newEntry;
-  fs.writeFileSync("./data/lawn/data.json", JSON.stringify(data, null, 4));
+  fs.writeFileSync(__dirname + "/data/lawn/data.json", JSON.stringify(data, null, 4));
   res.status(200).json(data);
 });
 
