@@ -1,4 +1,5 @@
 const Sequelize = require('sequelize');
+const mysql2 = require('mysql2');
 
 const live = {
   db: process.env.DB,
@@ -9,6 +10,7 @@ const live = {
 const sequelize = new Sequelize(live.db, live.user, live.pass, {
   host: live.host,
   dialect: 'mysql',
+  dialectModule: mysql2,
   dateStrings: true,
   logging: false,
   timezone: '-06:00',
