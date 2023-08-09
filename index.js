@@ -201,7 +201,7 @@ app.get("/lawn", (req, res) => {
 
 app.get("/lawn/subs/:subNum", (req, res) => {
   let subNum = req.params.subNum;
-  let rawdata = fs.readFileSync('./data/lawn/current.json');
+  let rawdata = fs.readFileSync(__dirname + '/data/lawn/current.json');
   let data = JSON.parse(rawdata);
   let response = data[subNum];
   res.status(200).json(response);
