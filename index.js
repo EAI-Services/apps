@@ -124,7 +124,7 @@ function sendmail() {
 //-------Admin Routes---------
 //----------*******-----------
 let snowDataReader = () => {
-  let rawdata = fs.readFileSync('./data/snow/data.json');
+  let rawdata = fs.readFileSync(__dirname + '/data/snow/data.json');
   return JSON.parse(rawdata);
 };
 
@@ -144,7 +144,7 @@ app.post('/snow/newContractor', (req, res) => {
   let data = snowDataReader()
   let newEntry = { name: name, locations: locations };
   data[id] = newEntry;
-  fs.writeFileSync("./data/snow/data.json", JSON.stringify(data, null, 4));
+  fs.writeFileSync(__dirname + "/data/snow/data.json", JSON.stringify(data, null, 4));
   res.status(200).json(data);
 });
 
@@ -152,7 +152,7 @@ app.post('/snow/deleteContractor', (req, res) => {
   let id = req.body.id;
   let data = snowDataReader()
   delete data[id];
-  fs.writeFileSync("./data/snow/data.json", JSON.stringify(data, null, 4));
+  fs.writeFileSync(__dirname + "/data/snow/data.json", JSON.stringify(data, null, 4));
   res.status(200).json(data);
 });
 app.post('/snow/addLocation', (req, res) => {
@@ -160,7 +160,7 @@ app.post('/snow/addLocation', (req, res) => {
   let name = req.body.name;
   let data =snowDataReader()
   if (data[id] && data[id].locations) data[id].locations.push(name);
-  fs.writeFileSync("./data/snow/data.json", JSON.stringify(data, null, 4));
+  fs.writeFileSync(__dirname + "/data/snow/data.json", JSON.stringify(data, null, 4));
   let changedData = snowDataReader()
   res.status(200).json(changedData);
 });
@@ -172,7 +172,7 @@ app.post('/snow/deleteLocation', (req, res) => {
     let arr = data[id].locations;
     let index = arr.indexOf(name);
     if (index > -1) arr.splice(index, 1);
-    fs.writeFileSync("./data/snow/data.json", JSON.stringify(data, null, 4));
+    fs.writeFileSync(__dirname + "/data/snow/data.json", JSON.stringify(data, null, 4));
   }
   res.status(200).json(data);
 });
@@ -231,14 +231,14 @@ app.post("/lawn/data", (req, res) => {
     Weedeated : ${r.weedeated}
     Weed Control : ${r.weedControl}
   `;
-  let rawdata = fs.readFileSync('./data/lawn/current.json');
+  let rawdata = fs.readFileSync(__dirname + '/data/lawn/current.json');
   let data = JSON.parse(rawdata);
   let locsArr = data[r.subNum].locations;
     console.log(locsArr)
     let index = locsArr.indexOf(r.location);
   locsArr.splice(index, 1);
     console.log (locsArr)
-   fs.writeFileSync("./data/lawn/current.json", 
+   fs.writeFileSync(__dirname + "/data/lawn/current.json", 
   JSON.stringify(data, null, 4));
   console.log(JSON.stringify(data, null, 4))
 });
@@ -299,8 +299,8 @@ cron.schedule('59 23 * * 0', () => {
 function manual() {
   let theDate = new Date().toString()
   console.log('CRON JOB RAN AT ' + theDate)
-  let mainData = JSON.parse(fs.readFileSync("./data/lawn/data.json"));
-  fs.writeFileSync("./data/lawn/current.json", JSON.stringify(mainData, null, 4));
+  let mainData = JSON.parse(fs.readFileSync(__dirname + "/data/lawn/data.json"));
+  fs.writeFileSync(__dirname + "/data/lawn/current.json", JSON.stringify(mainData, null, 4));
   let mailOptions = {
     attachments: [],
     from: process.env.FROM,
@@ -315,12 +315,12 @@ function manual() {
 //-------Admin Routes---------
 //----------*******-----------
 let lawnDataReader = () => {
-  let rawdata = fs.readFileSync('./data/lawn/data.json');
+  let rawdata = fs.readFileSync(__dirname + '/data/lawn/data.json');
   return JSON.parse(rawdata);
 };
 
 app.get("/lawn/printCurrent", (req, res) => {
-  let rawdata = fs.readFileSync('./data/lawn/current.json');
+  let rawdata = fs.readFileSync(__dirname + '/data/lawn/current.json');
   let data = JSON.parse(rawdata);
   console.log(data);
   res.status(200).json(data);
@@ -346,7 +346,7 @@ app.post('/lawn/deleteContractor', (req, res) => {
   let id = req.body.id;
   let data = lawnDataReader()
   delete data[id];
-  fs.writeFileSync("./data/lawn/data.json", JSON.stringify(data, null, 4));
+  fs.writeFileSync(__dirname + "/data/lawn/data.json", JSON.stringify(data, null, 4));
   res.status(200).json(data);
 });
 
@@ -355,7 +355,7 @@ app.post('/lawn/addLocation', (req, res) => {
   let name = req.body.name;
   let data = lawnDataReader()
   if (data[id] && data[id].locations) data[id].locations.push(name);
-  fs.writeFileSync("./data/lawn/data.json", JSON.stringify(data, null, 4));
+  fs.writeFileSync(__dirname + "/data/lawn/data.json", JSON.stringify(data, null, 4));
   res.status(200).json(data);
 });
 
@@ -367,7 +367,7 @@ app.post('/lawn/deleteLocation', (req, res) => {
     let arr = data[id].locations;
     let index = arr.indexOf(name);
     if (index > -1) arr.splice(index, 1);
-    fs.writeFileSync("./data/lawn/data.json", JSON.stringify(data, null, 4));
+    fs.writeFileSync(__dirname + "/data/lawn/data.json", JSON.stringify(data, null, 4));
   }
   res.status(200).json(data);
 });
