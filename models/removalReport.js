@@ -21,8 +21,8 @@ let users = db.define(
   }
 );
 
-users.sync().then(function () {
-  // Table created
-});
+// users.sync().then(function () {
+//   // Table created
+// });
 
 module.exports = users;
