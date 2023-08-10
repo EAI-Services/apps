@@ -491,32 +491,18 @@ app.get("*", (req, res) => {
   res.redirect('/');
 });
 // listen for requests :)
-async function startServer() {
-  try {
-    await sequelize.sync();
-    let lawnCurrent = fs.readFileSync(__dirname + '/data/lawn/current.json');
-    await fillBulkDataLawnCurrent(lawnCurrent);
-    let lawnMaster = fs.readFileSync(__dirname + '/data/lawn/data.json');
-    await fillBulkDataLawnMaster(lawnMaster);
-    let snowMaster = fs.readFileSync(__dirname + '/data/snow/data.json');
-    await fillBulkDataSnowMaster(snowMaster);
-    let snowCurrent = fs.readFileSync(__dirname + '/data/snow/current.json');
-    await fillBulkDataSnowCurrent(snowCurrent);
-
-    // const listener = app.listen(process.env.PORT, () => {
-    //   console.log('Your app is listening on port ' + listener.address().port);
-    // });
-    return app
-  } catch (error) {
-    console.error(error);
-  }
-}
-
-module.exports = startServer;
-
-
-
-
-
-
-
+sequelize.sync().then(async(result)=>{
+  let lawnCurrent = fs.readFileSync(__dirname + '/data/lawn/current.json');
+  await fillBulkDataLawnCurrent(lawnCurrent)
+  let lawnMaster = fs.readFileSync(__dirname + '/data/lawn/data.json');
+  await fillBulkDataLawnMaster(lawnMaster)
+  let snowMaster = fs.readFileSync(__dirname + '/data/snow/data.json');
+  await fillBulkDataSnowMaster(snowMaster)
+  let snowCurrent = fs.readFileSync(__dirname + '/data/snow/current.json');
+  await fillBulkDataSnowCurrent(snowCurrent)
+}).catch(error=>{
+  console.log(error)
+})
+const listener = app.listen(process.env.PORT, () => {
+  console.log("Your app is listening on port " + listener.address().port);
+});
