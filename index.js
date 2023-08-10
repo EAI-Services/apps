@@ -503,10 +503,10 @@ async function startServer() {
     let snowCurrent = fs.readFileSync(__dirname + '/data/snow/current.json');
     await fillBulkDataSnowCurrent(snowCurrent);
 
-    const listener = app.listen(process.env.PORT, () => {
-      console.log('Your app is listening on port ' + listener.address().port);
-    });
-    return listener
+    // const listener = app.listen(process.env.PORT, () => {
+    //   console.log('Your app is listening on port ' + listener.address().port);
+    // });
+    return app
   } catch (error) {
     console.error(error);
   }
