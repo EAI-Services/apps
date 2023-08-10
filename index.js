@@ -506,6 +506,7 @@ async function startServer() {
     const listener = app.listen(process.env.PORT, () => {
       console.log('Your app is listening on port ' + listener.address().port);
     });
+    return listener
   } catch (error) {
     console.error(error);
   }
