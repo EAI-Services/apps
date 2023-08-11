@@ -27,9 +27,7 @@ const mail = nodemailer.createTransport({
 let rq = 0, mailOptions;
 
 app.use(fileUpload());
-app.use(cors([
-  'https://repl-merge.vercel.app'
-]))
+app.use(cors())
 app.use(express.static("public"));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
