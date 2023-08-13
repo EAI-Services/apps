@@ -4,6 +4,7 @@ const nodemailer = require("nodemailer");
 const fileUpload = require('express-fileupload');
 // const jsonData = require('./data/snow/data.json');
 const fs = require('fs');
+const sharp = require('sharp');
 require("dotenv").config();
 const sequelize = require("./database/db");
 const DotJson = require('dot-json');
@@ -27,7 +28,9 @@ const mail = nodemailer.createTransport({
 let rq = 0, mailOptions;
 
 app.use(fileUpload());
-app.use(cors())
+app.use(cors([
+  'https://repl-merge-8yg7mq7vg-marufbelete.vercel.app'
+]))
 app.use(express.static("public"));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
@@ -45,6 +48,17 @@ app.use((req, res, next) => {
 //--------App Routes----------
 //----------*******-----------
 Relation()
+async function compressImages(imagePath) {
+    try {
+      const compressedImageBuffer = await sharp(imagePath)
+        .resize()
+        .toBuffer();
+        return compressedImageBuffer.toString('base64');
+    } catch (error) {
+      console.error(`Error compressing image ${imagePath}: ${error.message}`);
+    }
+}
+
 app.get("/", (req, res) => {
   res.sendFile(__dirname + "/views/index.html");
 });
@@ -111,12 +125,12 @@ app.post('/snow/uploadFiles', function(req, res) {
   rq++
 });
 
-app.get('/snow/mail', function(req, res) {
+app.get('/snow/mail', async function(req, res) {
   let picArr = mailOptions.attachments;
-  picArr[0] = { filename: 'image1.jpg', path: './public/snow/images/Pic0.jpg' };
-  picArr[1] = { filename: 'image2.jpg', path: './public/snow/images/Pic1.jpg' };
-  picArr[2] = { filename: 'image3.jpg', path: './public/snow/images/Pic2.jpg' };
-  picArr[3] = { filename: 'image4.jpg', path: './public/snow/images/Pic3.jpg' };
+  picArr[0] = { filename: 'image1.jpg', content: await compressImages('./public/snow/images/Pic0.jpg') };
+  picArr[1] = { filename: 'image2.jpg', content: await compressImages('./public/snow/images/Pic1.jpg') };
+  picArr[2] = { filename: 'image3.jpg', content: await compressImages('./public/snow/images/Pic2.jpg') };
+  picArr[3] = { filename: 'image4.jpg', content: await compressImages('./public/snow/images/Pic3.jpg') };
   sendmail();
   rq = 0;
 });

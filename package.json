@@ -21,6 +21,7 @@
     "mysql2": "^2.2.5",
     "node-cron": "^3.0.2",
     "nodemailer": "^6.4.16",
-    "sequelize": "^6.3.5"
+    "sequelize": "^6.3.5",
+    "sharp": "^0.32.4"
   }
 }
