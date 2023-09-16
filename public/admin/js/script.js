@@ -1,5 +1,5 @@
 let anc = false, dc = false, alc = false, dlc = false
-// const base_url="http://localhost:8000"
+// const base_url="http://localhost:7000"
 const base_url="https://repl-merge.vercel.app"
 $.get(`${base_url}/snow`)
 
@@ -172,8 +172,44 @@ $('#deleteLocation2').on('click', () => {
     $('#deleteLocationForm2').removeClass('d-none');
   } 
 })
+
 $('#resetData').on('click', () => {
   $.get(`${base_url}/lawn/manual`)
   alert("Data Reset")
 })
+
+$('#downloadMonthlyData').on('click', () => {
+  let monthInput = $('#month').val();
+  var link = `${base_url}/lawn/excel?month=${monthInput}`;
+  alert("download")
+  window.location.href = link;
+
+})
+
+$('#downloadYearlyData').on('click', () => {
+  let yearInput = $('#year').val();
+  let link = `${base_url}/lawn/excel?year=${yearInput}`;
+  alert("download")
+  window.location.href = link;
+  
+})
+
+$('#month').on('input', function() {
+  let monthInput = $('#month').val();
+  if (monthInput) {
+    $('#downloadMonthlyData').prop('disabled', false);
+  } else {
+    $('#downloadMonthlyData').prop('disabled', true);
+  }
+});
+$('#year').on('input', function() {
+  let yearInput = $('#year').val();
+  if (yearInput&&yearInput.length==4) {
+    $('#downloadYearlyData').prop('disabled', false);
+  } else {
+    $('#downloadYearlyData').prop('disabled', true);
+  }
+});
+
 module.exports = base_url;
+

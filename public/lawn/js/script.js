@@ -95,8 +95,7 @@ $("#continue3").on("click", function () {
 var requestCount = 0
 //page 4 submit button
 $("#submit").on("click", function () {
-  $.post(
-    `${base_url}/data`, // url
+  $.post(`${base_url}/data`, // url
     report, // data to be submit
     function (data, status, jqXHR) {
       console.log(data, status, jqXHR);

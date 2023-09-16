@@ -22,8 +22,26 @@ function findAllReports() {
         .catch(err => rej(report))
     });
 }
+function filterByYear(arr, year) {
+    return arr.filter(function(obj) {
+        const date = new Date(obj.date);
+        const year_d = date.getFullYear();
+        return year_d==year
+    });
+  }
+
+function filterByMonth(arr, year, month) {
+    return arr.filter(function(obj) {
+        const date = new Date(obj.date);
+        const year_d = date.getFullYear();
+        const month_d = date.getMonth() + 1;
+        return year_d==year&&month_d==month
+    });
+  }
+
 
 async function createExcel(req, res) {
+    try {
     let workbook = new ExcelJS.Workbook();
     let worksheet = workbook.addWorksheet("Reports");
     worksheet.columns = [
@@ -36,7 +54,17 @@ async function createExcel(req, res) {
         { header: "Weedeated", key: "weedeated", width: 15 },
         { header: "Weed Control", key: "weedControl", width: 15 },
     ];
-    const reports = await findAllReports();
+    const arr = await findAllReports();
+    let reports=arr
+    
+    if(req.query?.year){
+       reports= filterByYear(arr,req.query.year)
+    }
+    if(req.query?.month){
+        const year=String(req.query.month).split('-')[0]
+        const month=String(req.query.month).split('-')[1]
+        reports= filterByMonth(arr,year,month)
+    }
     worksheet.addRows(reports);
 
     res.setHeader(
@@ -51,6 +79,10 @@ async function createExcel(req, res) {
     return workbook.xlsx.write(res).then(function () {
         res.status(200).end();
     });
+}
+    catch (error) {
+       console.log(error) 
+    }
 }
 
 module.exports = {
