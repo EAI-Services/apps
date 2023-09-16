@@ -181,7 +181,6 @@ $('#resetData').on('click', () => {
 $('#downloadMonthlyData').on('click', () => {
   let monthInput = $('#month').val();
   var link = `${base_url}/lawn/excel?month=${monthInput}`;
-  alert("download")
   window.location.href = link;
 
 })
@@ -189,7 +188,6 @@ $('#downloadMonthlyData').on('click', () => {
 $('#downloadYearlyData').on('click', () => {
   let yearInput = $('#year').val();
   let link = `${base_url}/lawn/excel?year=${yearInput}`;
-  alert("download")
   window.location.href = link;
   
 })
