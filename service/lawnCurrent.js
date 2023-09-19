@@ -80,17 +80,23 @@ Object.keys(data).forEach((key) => {
     name: data[key].name,
     locations: []
   };
-  
   data[key].locations.forEach((location) => {
+    console.log(location)
     obj.locations.push({ location: location});
   });
-
   mappedData.push(obj);
 });
-    await CurrentLawn.bulkCreate(mappedData,{
-        include:[Location],
-        ignoreDuplicates: true
-    })
+for(let dataa of mappedData){
+   let current_lawn= await CurrentLawn.findOne({where:{contractorId:dataa.contractorId}})
+    let mapLocation=dataa.locations.map(e=>({...e,currentLawnId:current_lawn.id}))
+    await Location.bulkCreate(mapLocation)
+}
+
+// console.log(mappedData)
+//     await CurrentLawn.bulkCreate(mappedData,{
+//         include:[Location],
+//         ignoreDuplicates: true
+//     })
     return 
 }
 

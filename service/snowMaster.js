@@ -71,12 +71,18 @@ async function fillBulkDataSnowMaster(jsonData) {
       });
       mappedData.push(obj);
     });
-        await MasterSnow.bulkCreate(mappedData,{
-            include:[Location],
-            ignoreDuplicates: true
-        })
+    for(let dataa of mappedData){
+        let current_lawn= await MasterSnow.findOne({where:{contractorId:dataa.contractorId}})
+         let mapLocation=dataa.locations.map(e=>({...e,masterSnowId:current_lawn.id}))
+         await Location.bulkCreate(mapLocation)
+     }
+        // await MasterSnow.bulkCreate(mappedData,{
+        //     include:[Location],
+        //     ignoreDuplicates: true
+        // })
         return 
     }
+
 async function fillBulkDataSnowCurrent(jsonData) {
     const mappedData = [];
 const data = JSON.parse(jsonData);
@@ -93,10 +99,15 @@ Object.keys(data).forEach((key) => {
     
       mappedData.push(obj);
     });
-        await CurrentSnow.bulkCreate(mappedData,{
-            include:[Location],
-            ignoreDuplicates: true
-        })
+    for(let dataa of mappedData){
+        let current_lawn= await CurrentSnow.findOne({where:{contractorId:dataa.contractorId}})
+         let mapLocation=dataa.locations.map(e=>({...e,currentSnowId:current_lawn.id}))
+         await Location.bulkCreate(mapLocation)
+     }
+        // await CurrentSnow.bulkCreate(mappedData,{
+        //     include:[Location],
+        //     ignoreDuplicates: true
+        // })
         return 
     }
 
