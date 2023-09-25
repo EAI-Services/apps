@@ -55,6 +55,7 @@ async function deleteLawnMaster(contractorId) {
     }})
     return 
 }
+
 async function fillBulkDataLawnMaster(jsonData) {
     const mappedData = [];
     const data = JSON.parse(jsonData);
@@ -71,10 +72,16 @@ async function fillBulkDataLawnMaster(jsonData) {
     
       mappedData.push(obj);
     });
-        await MasterLawn.bulkCreate(mappedData,{
-            include:[Location],
-            ignoreDuplicates: true
-        })
+    for(let dataa of mappedData){
+        let current_lawn= await MasterLawn.findOne({where:{contractorId:dataa.contractorId}})
+         let mapLocation=dataa.locations.map(e=>({...e,masterLawnId:current_lawn.id}))
+         await Location.bulkCreate(mapLocation)
+     }
+    // console.log(mappedData)
+        // await MasterLawn.bulkCreate(mappedData,{
+        //     include:[Location],
+        //     ignoreDuplicates: true
+        // })
         return 
     }
 

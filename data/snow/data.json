@@ -132,17 +132,5 @@
             "Owensboro S : 3205 Frederica St, Owensboro KY",
             "Owensboro Downtown : 500 Frederica St, Owensboro KY"
         ]
-    },
-    "12345": {
-        "name": "test",
-        "locations": [
-            ""
-        ]
-    },
-    "123123": {
-        "name": "test",
-        "locations": [
-            ""
-        ]
     }
 }

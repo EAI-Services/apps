@@ -29,7 +29,8 @@ let rq = 0, mailOptions;
 
 app.use(fileUpload());
 app.use(cors([
-  'https://repl-merge-8yg7mq7vg-marufbelete.vercel.app'
+  'https://repl-merge-8yg7mq7vg-marufbelete.vercel.app',
+  'http://localhost:7000'
 ]))
 app.use(express.static("public"));
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -504,14 +505,14 @@ app.get("*", (req, res) => {
 });
 // listen for requests :)
 sequelize.sync().then(async(result)=>{
-  let lawnCurrent = fs.readFileSync(__dirname + '/data/lawn/current.json');
-  await fillBulkDataLawnCurrent(lawnCurrent)
-  let lawnMaster = fs.readFileSync(__dirname + '/data/lawn/data.json');
-  await fillBulkDataLawnMaster(lawnMaster)
-  let snowMaster = fs.readFileSync(__dirname + '/data/snow/data.json');
-  await fillBulkDataSnowMaster(snowMaster)
-  let snowCurrent = fs.readFileSync(__dirname + '/data/snow/current.json');
-  await fillBulkDataSnowCurrent(snowCurrent)
+  // let lawnCurrent = fs.readFileSync(__dirname + '/data/lawn/current.json');
+  // await fillBulkDataLawnCurrent(lawnCurrent)
+  // let lawnMaster = fs.readFileSync(__dirname + '/data/lawn/data.json');
+  // await fillBulkDataLawnMaster(lawnMaster)
+  // let snowMaster = fs.readFileSync(__dirname + '/data/snow/data.json');
+  // await fillBulkDataSnowMaster(snowMaster)
+  // let snowCurrent = fs.readFileSync(__dirname + '/data/snow/current.json');
+  // await fillBulkDataSnowCurrent(snowCurrent)
 }).catch(error=>{
   console.log(error)
 })

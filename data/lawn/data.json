@@ -100,17 +100,6 @@
         "locations": [
             "Mount Vernon IL : 2711 Broadway St, Mount Vernon IL"
         ]
-    },
-    "1234": {
-        "name": "test",
-        "locations": [
-            ""
-        ]
-    },
-    "12345": {
-        "name": "test",
-        "locations": [
-            ""
-        ]
     }
+   
 }
