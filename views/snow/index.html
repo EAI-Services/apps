@@ -2,202 +2,219 @@
 <html>
 
 <head>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width">
-	<title>repl.it</title>
-	<link rel="apple-touch-icon" sizes="180x180" href="/snow/images/apple-touch-icon.png">
-	<link rel="manifest" href="/snow/css/site.webmanifest">
-	<link href="/snow/css/style.css" rel="stylesheet" type="text/css" />
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css" integrity="sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I"
-	 crossorigin="anonymous">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>EAI Snow</title>
+  <link rel="apple-touch-icon" sizes="180x180" href="/snow/images/apple-touch-icon.png">
+  <link rel="icon" type="image/png" href="/snow/images/android-chrome-192x192.png" sizes=192x192>
+  <link rel="icon" type="image/png" href="/snow/images/android-chrome-512x512.png" sizes=512x512>
+  <link rel="shortcut icon" type="image/png" href="/snow/images/SnowRemoval.png">
+  <link rel="manifest" href="/snow/css/site.webmanifest">
+  <link href="/snow/css/style.css" rel="stylesheet" type="text/css" />
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css"
+    integrity="sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I" crossorigin="anonymous">
 
 </head>
 
 
 <body>
-	<div class="app text-center">
+  <div class="app text-center">
 
-		<div id="main" class='container'>
+    <div id="main" class='container'>
 
-			<nav class="navbar navbar-expand-md navbar-secondary bg-secondary fixed-top">
+      <nav class="navbar navbar-expand-md navbar-secondary bg-secondary fixed-top">
 
-				<h4><a class="navbar-brand eai" href="#"><b>EAI Mobile</b></a></h4>
+        <h4><a class="navbar-brand eai" href="#"><b>EAI Mobile</b></a></h4>
 
-				<ul class="navbar-nav float-right">
-					<li class="nav-item">
-						<h4 class='text-danger mr-auto'><a class="nav-link text-danger" href="/snow">Reset</a></h4>
-					</li>
-				</ul>
+        <ul class="navbar-nav float-right">
+          <li class="nav-item">
+            <h4 class='text-danger mr-auto'><a class="nav-link text-danger" href="/snow">Reset</a></h4>
+          </li>
+        </ul>
 
-		  </nav>
+      </nav>
 
-		</div>
+    </div>
 
-    <img id='logo' src="https://previews.123rf.com/images/hayesnch/hayesnch1902/hayesnch190200004/116782281-vector-cartoon-snowplow-tractor-truck-removing-snow-in-winter.jpg" alt="logo" class="mx-auto">
+    <img id='logo'
+      src="https://previews.123rf.com/images/hayesnch/hayesnch1902/hayesnch190200004/116782281-vector-cartoon-snowplow-tractor-truck-removing-snow-in-winter.jpg"
+      alt="logo" class="mx-auto">
 
-		<!-- Page 1 -->
-		<div id="page1" class='text-center'>
-			
+    <!-- Page 1 -->
+    <div id="page1" class='text-center'>
+
       <div class="btn-group-toggle" id='visit' data-toggle="buttons">
-            <div id="visitBtns">
-              <button id='newVisit' type="button" class="btn btn-xlg btn-secondary btns" data-toggle="button" aria-pressed="false" autocomplete="off">
-              New Visit
-              </button>
-            
-              <button id='returnVisit' type="button" class="btn btn-xlg btn-secondary btns" data-toggle="button" aria-pressed="false" autocomplete="off">
-              Return Visit
-              </button>
-            </div>
-      </div>
-          
-          <br>
-          <div align='center'>
-            <select name="contractor" id="contractor" class='select-css'>
-              <option value="" selected disabled hidden>Please Select Contractor</option>
-              <option value="1001">1001</option>
-              <option value="1002">1002</option>
-              <option value="1003">1003</option>
-              <option value="1004">1004</option>
-              <option value="1005">1005</option>
-              <option value="1006">1006</option>
-              <option value="1007">1007</option>
-              <option value="1008">1008</option>
-              <option value="1007">1009</option>
-              <option value="1008">1010</option>
-              <option value="1011">1011</option>
-              <option value="1012">1012</option>
-              <option value="1013">1013</option>
-              <option value="1014">1014</option>
-              <option value="1015">1015</option>
-              <option value="1016">1016</option>
-              <option value="1017">1017</option>
-            </select>
-          </div>
+        <div id="visitBtns">
+          <button id='newVisit' type="button" class="btn btn-xlg btn-secondary btns" data-toggle="button"
+            aria-pressed="false" autocomplete="off">
+            New Visit
+          </button>
 
-          
-          <button type="button" class="btn btn-xlg btn-warning continue mtop3" id='continue1' disabled>Please Wait</button>
-          
+          <button id='returnVisit' type="button" class="btn btn-xlg btn-secondary btns" data-toggle="button"
+            aria-pressed="false" autocomplete="off">
+            Return Visit
+          </button>
+        </div>
+      </div>
+
+      <br>
+      <div align='center'>
+        <select name="contractor" id="contractor" class='select-css'>
+          <option value="" selected disabled hidden>Please Select Contractor</option>
+          <option value="1001">1001</option>
+          <option value="1002">1002</option>
+          <option value="1003">1003</option>
+          <option value="1004">1004</option>
+          <option value="1005">1005</option>
+          <option value="1006">1006</option>
+          <option value="1007">1007</option>
+          <option value="1008">1008</option>
+          <option value="1007">1009</option>
+          <option value="1008">1010</option>
+          <option value="1011">1011</option>
+          <option value="1012">1012</option>
+          <option value="1013">1013</option>
+          <option value="1014">1014</option>
+          <option value="1015">1015</option>
+          <option value="1016">1016</option>
+          <option value="1017">1017</option>
+        </select>
+      </div>
+
+
+      <button type="button" class="btn btn-xlg btn-warning continue mtop3" id='continue1' disabled>Please Wait</button>
+
     </div>
 
-      <!-- PAGE 2 -->
-      <div id="page2">
-        <div id="checkbxs" class='text-left'>
-          <div class="checkbox">
-            <label class='text-white label'><input type="checkbox" value="1" id='saltedParkingLot' class='checks'> Salted Parking Lot</label>
-          </div>
-          <div class="checkbox">
-            <label class='text-white label'><input type="checkbox" value="2" id='saltedSidewalks'  class='checks'> Salted Sidewalks</label>
-          </div>
-          <div class="checkbox">
-            <label class='text-white label'><input type="checkbox" value="3" id='plowedParkingLot' class='checks'> Plowed Parking Lot</label>
-          </div>
-          <div class="checkbox">
-            <label class='text-white label'><input type="checkbox" value="1" id='shoveledSidewalks' class='checks'> Shoveled Sidewalks</label>
-          </div>
+    <!-- PAGE 2 -->
+    <div id="page2">
+      <div id="checkbxs" class='text-left'>
+        <div class="checkbox">
+          <label class='text-white label'><input type="checkbox" value="1" id='saltedParkingLot' class='checks'> Salted
+            Parking Lot</label>
         </div>
-        <div id="continue2" class='continue'>
-            <button type="button" class="btn btn-xlg btn-success" id='continue2'>Continue</button>
+        <div class="checkbox">
+          <label class='text-white label'><input type="checkbox" value="2" id='saltedSidewalks' class='checks'> Salted
+            Sidewalks</label>
         </div>
-      </div>
-          
-          
-          <!-- PAGE 3 -->
-      <div id="page3" class='text-center'>
-          
-          
-            <select name="locations" id="locations" class='select-css'>
-              <option value="" selected disabled hidden>Please Select Location</option>
-            </select>
-            <br>
-
-          <div align='center' class='snow'>
-            <select name='snow' id="snow" class='select-css'>
-              <option selected disabled hidden>Snow Amount</option>
-              <option>Less Than 1in</option>
-              <option>1 inch</option>
-              <option>2 inches</option>
-              <option>3 inches</option>
-              <option>4 inches</option>
-              <option>5 inches</option>
-              <option>6 inches</option>
-              <option>7 inches</option>
-              <option>8 inches</option>
-              <option>9 inches</option>
-              <option>10 inches</option>
-              <option>11 inches</option>
-              <option>12 inches</option>
-              <option>13 inches</option>
-              <option>14 inches</option>
-              <option>15 inches</option>
-              <option>16 inches</option>
-              <option>17 inches</option>
-              <option>18 inches</option>
-              <option>19 inches</option>
-              <option>20 inches</option>
-              <option>21 inches</option>
-              <option>22 inches</option>
-              <option>23 inches</option>
-              <option>24 inches</option>
-              <option>25 inches</option>
-              <option>26 inches</option>
-              <option>27 inches</option>
-              <option>28 inches</option>
-          </select>
+        <div class="checkbox">
+          <label class='text-white label'><input type="checkbox" value="3" id='plowedParkingLot' class='checks'> Plowed
+            Parking Lot</label>
         </div>
-
-          <div id="continue3" class='continue'>
-            <button type="button" class="btn btn-xlg btn-success" id='continue2'>Continue</button>
+        <div class="checkbox">
+          <label class='text-white label'><input type="checkbox" value="1" id='shoveledSidewalks' class='checks'>
+            Shoveled Sidewalks</label>
         </div>
       </div>
+      <div id="continue2" class='continue'>
+        <button type="button" class="btn btn-xlg btn-success" id='continue2'>Continue</button>
+      </div>
+    </div>
 
-      <!-- PAGE 4 -->
-      <div id="page4" class='text-center'>
-        
-          <h5 class='mtop3 blue'>PLEASE TAKE 4 PICTURES</h5>
-          
 
-        
-            <div id="yourBtn" class='btn btn-xlg btn-success'>Open Camera</div>
-            
-            <div style='height: 0px;width:0px; overflow:hidden;'><input id="imgUpload" type="file" value="file" accept="image/*" capture="environment" name='file'/></div>
-            
-          
-          <h5 class='warning mtop3'>
-              <b>PHONE SIDEWAYS PLEASE</b>
-          </h5>
+    <!-- PAGE 3 -->
+    <div id="page3" class='text-center'>
 
-          <img id='pic1' class='pics mx-auto picBlock'>
-          <img id='pic2' class='pics mx-auto picBlock'>
-          <img id='pic3' class='pics mx-auto picBlock'>
-          <img id='pic4' class='pics mx-auto picBlock'>
-          <h5 class='warning mtop3'><b>PHONE SIDEWAYS PLEASE</b></h5>
 
-          <div id="sub">
-            <button type="button" class="btn btn-xlg btn-success" id='submit'>Submit Report</button>
-          </div>
+      <select name="locations" id="locations" class='select-css'>
+        <option value="" selected disabled hidden>Please Select Location</option>
+      </select>
+      <br>
 
+      <div align='center' class='snow'>
+        <select name='snow' id="snow" class='select-css'>
+          <option selected disabled hidden>Snow Amount</option>
+          <option>Less Than 1in</option>
+          <option>1 inch</option>
+          <option>2 inches</option>
+          <option>3 inches</option>
+          <option>4 inches</option>
+          <option>5 inches</option>
+          <option>6 inches</option>
+          <option>7 inches</option>
+          <option>8 inches</option>
+          <option>9 inches</option>
+          <option>10 inches</option>
+          <option>11 inches</option>
+          <option>12 inches</option>
+          <option>13 inches</option>
+          <option>14 inches</option>
+          <option>15 inches</option>
+          <option>16 inches</option>
+          <option>17 inches</option>
+          <option>18 inches</option>
+          <option>19 inches</option>
+          <option>20 inches</option>
+          <option>21 inches</option>
+          <option>22 inches</option>
+          <option>23 inches</option>
+          <option>24 inches</option>
+          <option>25 inches</option>
+          <option>26 inches</option>
+          <option>27 inches</option>
+          <option>28 inches</option>
+        </select>
       </div>
 
-      <!-- UPLOADING PAGE -->
-      <h3 class='blue text-center' id='uploading'><b>Uploading...</b></h2>
+      <div id="continue3" class='continue'>
+        <button type="button" class="btn btn-xlg btn-success" id='continue2'>Continue</button>
+      </div>
+    </div>
 
-        <!-- SUCCESS PAGE -->
-        <div id="success" class='text-center'>
-          <h3 class='text-success text-center'><b>Report Sent!</b></h2>
+    <!-- PAGE 4 -->
+    <div id="page4" class='text-center'>
+
+      <h5 class='mtop3 blue'>PLEASE TAKE 4 PICTURES</h5>
+
+
+
+      <div id="yourBtn" class='btn btn-xlg btn-success'>Open Camera</div>
+
+      <div style='height: 0px;width:0px; overflow:hidden;'><input id="imgUpload" type="file" value="file"
+          accept="image/*" capture="environment" name='file' /></div>
+
+
+      <h5 class='warning mtop3'>
+        <b>PHONE SIDEWAYS PLEASE</b>
+      </h5>
+
+      <img id='pic1' class='pics mx-auto picBlock'>
+      <img id='pic2' class='pics mx-auto picBlock'>
+      <img id='pic3' class='pics mx-auto picBlock'>
+      <img id='pic4' class='pics mx-auto picBlock'>
+      <h5 class='warning mtop3'><b>PHONE SIDEWAYS PLEASE</b></h5>
+
+      <div id="sub">
+        <button type="button" class="btn btn-xlg btn-success" id='submit'>Submit Report</button>
+      </div>
+
+    </div>
+
+    <!-- UPLOADING PAGE -->
+    <h3 class='blue text-center' id='uploading'><b>Uploading...</b></h2>
+
+      <!-- SUCCESS PAGE -->
+      <div id="success" class='text-center'>
+        <h3 class='text-success text-center'><b>Report Sent!</b></h2>
           <h5 class='text-warning text-center'>Resetting...</h5>
-        </div>
-      
+      </div>
 
 
-        </div>
-    </div>
+
+  </div>
+  </div>
   <!-- jQuery library -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
-<!-- Latest compiled JavaScript -->
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.min.js" integrity="sha384-oesi62hOLfzrys4LxRF63OJCXdXDipiYWBnvTl9Y9/TRlw5xlKIEHpNyvvDShgf/" crossorigin="anonymous"></script>
+  <!-- Latest compiled JavaScript -->
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+    integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.min.js"
+    integrity="sha384-oesi62hOLfzrys4LxRF63OJCXdXDipiYWBnvTl9Y9/TRlw5xlKIEHpNyvvDShgf/"
+    crossorigin="anonymous"></script>
 
-    <script src="/snow/js/script.js"></script>
-  </body>
+  <script src="/snow/js/script.js"></script>
+</body>
+
 </html>
