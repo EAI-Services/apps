@@ -3,14 +3,14 @@ const Location = require('../models/locationModel');
 
 async function getLawnMasterData() {
     const result=await MasterLawn.findAll({include:[Location]})
+
     if(result){
         
         const new_result = result.map(e=>e.dataValues)
         const final_result = new_result.map(resul=>({
             ...resul,
-            locations:resul.locations.map((location) => location.location)
+            locations:resul.locations.map((location) => ({location:location.location}))
         }))
-       
         return final_result
     }
     return result

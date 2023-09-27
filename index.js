@@ -377,11 +377,13 @@ cron.schedule('59 23 * * 0', () => {
   }
 );
 
+
 async function manual() {
   let theDate = new Date().toString()
   console.log('CRON JOB RAN AT ' + theDate)
   // let mainData = JSON.parse(fs.readFileSync(__dirname + "/data/lawn/data.json"));
   let mainData = await getLawnMasterData()
+
   await deleteAllLawnCurrent()
   await addBulkDataLawnCurrent(mainData)
   // fs.writeFileSync(__dirname + "/data/lawn/current.json", JSON.stringify(mainData, null, 4));

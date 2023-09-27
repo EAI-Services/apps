@@ -38,6 +38,7 @@ async function addDataLawnCurrent(data,locations) {
 }
 
 async function addBulkDataLawnCurrent(data) {
+    
      await CurrentLawn.bulkCreate(data,{
         include:[Location],
         ignoreDuplicates: true
@@ -66,8 +67,7 @@ async function deleteLawnCurrent(contractorId) {
 }
 
 async function deleteAllLawnCurrent() {
-    await CurrentLawn.destroy({where:{},
-    })
+    await CurrentLawn.destroy({where:{}})
     return 
 }
 
@@ -81,7 +81,6 @@ Object.keys(data).forEach((key) => {
     locations: []
   };
   data[key].locations.forEach((location) => {
-    console.log(location)
     obj.locations.push({ location: location});
   });
   mappedData.push(obj);
