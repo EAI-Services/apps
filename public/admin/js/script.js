@@ -1,6 +1,7 @@
 let anc = false, dc = false, alc = false, dlc = false
 // const base_url="http://localhost:7000"
-const base_url="https://repl-merge.vercel.app"
+const base_url="http://eaievv.com"
+// const base_url="https://repl-merge.vercel.app"
 $.get(`${base_url}/snow`)
 
 //Page 1

@@ -30,6 +30,7 @@ let rq = 0, mailOptions;
 app.use(fileUpload());
 app.use(cors([
   'https://repl-merge-8yg7mq7vg-marufbelete.vercel.app',
+  'http://eaievv.com',
   'http://localhost:7000'
 ]))
 app.use(express.static("public"));
