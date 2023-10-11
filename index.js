@@ -382,11 +382,11 @@ cron.schedule('59 23 * * 0', () => {
 
 
 async function manual() {
+  try{
   let theDate = new Date().toString()
   console.log('CRON JOB RAN AT ' + theDate)
   // let mainData = JSON.parse(fs.readFileSync(__dirname + "/data/lawn/data.json"));
   let mainData = await getLawnMasterData()
-console.log(mainData)
   await deleteAllLawnCurrent()
   await addBulkDataLawnCurrent(mainData)
   // fs.writeFileSync(__dirname + "/data/lawn/current.json", JSON.stringify(mainData, null, 4));
@@ -397,7 +397,11 @@ console.log(mainData)
     subject: "EAI Cron Job Ran",
     text: `The EAI cron job ran at ${theDate}`,
   };
-  sendmail(mailOptions)
+  sendmail(mailOptions).then(e=>e).catch(e=>e)
+}
+  catch (error) {
+    console.log(error.message)
+  }
 }
 
 //----------*******-----------
