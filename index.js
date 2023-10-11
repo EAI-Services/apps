@@ -528,10 +528,16 @@ sequelize.sync().then(async(result)=>{
 const listener = app.listen(process.env.PORT, () => {
   console.log("Your app is listening on port " + listener.address().port);
 });
+console.log('HELLLOLLLL ')
 
 
 module.exports = async () => {
   try{
+    Relation()
+    sequelize.sync().then(async(result)=>{
+    }).catch(error=>{
+      console.log(error)
+    })
     let theDate = new Date().toString()
     console.log('CRON JOB RAN AT ' + theDate)
     // let mainData = JSON.parse(fs.readFileSync(__dirname + "/data/lawn/data.json"));
