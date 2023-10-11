@@ -3,7 +3,6 @@ let anc = false, dc = false, alc = false, dlc = false
 const base_url="http://eaievv.com"
 // const base_url="https://repl-merge.vercel.app"
 $.get(`${base_url}/snow`)
-
 //Page 1
 $('#submit1').on('click', (e) => {
   e.preventDefault();
