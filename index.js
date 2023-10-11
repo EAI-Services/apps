@@ -386,7 +386,7 @@ async function manual() {
   console.log('CRON JOB RAN AT ' + theDate)
   // let mainData = JSON.parse(fs.readFileSync(__dirname + "/data/lawn/data.json"));
   let mainData = await getLawnMasterData()
-
+console.log(mainData)
   await deleteAllLawnCurrent()
   await addBulkDataLawnCurrent(mainData)
   // fs.writeFileSync(__dirname + "/data/lawn/current.json", JSON.stringify(mainData, null, 4));
