@@ -1,7 +1,7 @@
-const { deleteAllLawnCurrent, addBulkDataLawnCurrent } = require("./service/lawnCurrent")
-const { getLawnMasterData } = require("./service/lawnMaster")
+const { deleteAllLawnCurrent, addBulkDataLawnCurrent } = require("../service/lawnCurrent")
+const { getLawnMasterData } = require("../service/lawnMaster")
 
-  module.exports = async (req, res) => {
+  module.exports = async () => {
     try{
       let theDate = new Date().toString()
       console.log('CRON JOB RAN AT ' + theDate)
