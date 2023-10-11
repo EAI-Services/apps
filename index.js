@@ -31,6 +31,7 @@ app.use(fileUpload());
 app.use(cors([
   'https://repl-merge-8yg7mq7vg-marufbelete.vercel.app',
   'https://eaievv.com',
+  'https://apps-blond.vercel.app',
   'http://localhost:7000'
 ]))
 app.use(express.static("public"));
