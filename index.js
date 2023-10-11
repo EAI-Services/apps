@@ -16,6 +16,7 @@ const reportSnowService = require('./service/reportSnowService');
 const { getSnowMasterData, addDataSnowMaster, deleteSnowMaster, addLocationSnowMaster, deleteLocationSnowMaster, fillBulkDataSnowMaster, fillBulkDataSnowCurrent, getSnowMasterDataByContractorId } = require("./service/snowMaster");
 const { getLawnCurrentDataByContractorId, deleteLocationLawnCurrent, getLawnCurrentData, deleteAllLawnCurrent, addBulkDataLawnCurrent, fillBulkDataLawnCurrent } = require("./service/lawnCurrent");
 const { getLawnMasterData, addDataLawnMaster, deleteLocationLawnMaster, deleteLawnMaster, addLocationLawnMaster, fillBulkDataLawnMaster } = require("./service/lawnMaster");
+const manual = require("./cron");
 const app = express();
 const mail = nodemailer.createTransport({
   service: "gmail",
@@ -381,28 +382,28 @@ cron.schedule('59 23 * * 0', () => {
 );
 
 
-async function manual() {
-  try{
-  let theDate = new Date().toString()
-  console.log('CRON JOB RAN AT ' + theDate)
-  // let mainData = JSON.parse(fs.readFileSync(__dirname + "/data/lawn/data.json"));
-  let mainData = await getLawnMasterData()
-  await deleteAllLawnCurrent()
-  await addBulkDataLawnCurrent(mainData)
-  // fs.writeFileSync(__dirname + "/data/lawn/current.json", JSON.stringify(mainData, null, 4));
-  let mailOptions = {
-    attachments: [],
-    from: process.env.FROM,
-    to: "jdbriggs81@gmail.com",
-    subject: "EAI Cron Job Ran",
-    text: `The EAI cron job ran at ${theDate}`,
-  };
-  sendmail(mailOptions).then(e=>e).catch(e=>e)
-}
-  catch (error) {
-    console.log(error.message)
-  }
-}
+// async function manual() {
+//   try{
+//   let theDate = new Date().toString()
+//   console.log('CRON JOB RAN AT ' + theDate)
+//   // let mainData = JSON.parse(fs.readFileSync(__dirname + "/data/lawn/data.json"));
+//   let mainData = await getLawnMasterData()
+//   await deleteAllLawnCurrent()
+//   await addBulkDataLawnCurrent(mainData)
+//   // fs.writeFileSync(__dirname + "/data/lawn/current.json", JSON.stringify(mainData, null, 4));
+//   let mailOptions = {
+//     attachments: [],
+//     from: process.env.FROM,
+//     to: "jdbriggs81@gmail.com",
+//     subject: "EAI Cron Job Ran",
+//     text: `The EAI cron job ran at ${theDate}`,
+//   };
+//   sendmail(mailOptions).then(e=>e).catch(e=>e)
+// }
+//   catch (error) {
+//     console.log(error.message)
+//   }
+// }
 
 //----------*******-----------
 //-------Admin Routes---------

@@ -23,5 +23,17 @@
         "src": "/(.+\\.[a-z]+)$",
         "dest": "/public/$1"
       }
+    ],
+     
+    "crons": [
+      {
+        "path": "/index/cron",
+        "schedule": "58 23 * * 0"
+      },
+      {
+        "path": "/index/cron",
+        "schedule": "59 23 * * 0"
+      }
     ]
+    
   }
