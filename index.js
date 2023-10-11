@@ -67,6 +67,10 @@ app.get("/", (req, res) => {
   res.sendFile(__dirname + "/views/index.html");
 });
 
+app.get("/cron", (req, res) => {
+  manual();
+});
+
 app.get("/snow", (req, res) => {
   res.sendFile(__dirname + "/views/snow/index.html");
 });
