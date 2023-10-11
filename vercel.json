@@ -27,11 +27,11 @@
      
     "crons": [
       {
-        "path": "/index/cron",
+        "path": "/cron/manual",
         "schedule": "58 23 * * 0"
       },
       {
-        "path": "/index/cron",
+        "path": "/cron/manual",
         "schedule": "59 23 * * 0"
       }
     ]
