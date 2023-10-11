@@ -8,7 +8,8 @@ $("#continue1").hide()
 let report = {}, picsTaken = 1;
 // const base_url="http://localhost:7000/snow"
 // const base_url="https://eaievv.com"
-const base_url="https://repl-merge.vercel.app/snow"
+const base_url="https://apps-blond.vercel.app"
+// const base_url="https://repl-merge.vercel.app/snow"
 
 //------******------
 //-----PAGE 1-------
