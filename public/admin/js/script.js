@@ -1,7 +1,7 @@
 let anc = false, dc = false, alc = false, dlc = false
-// const base_url="http://localhost:7000"
-// const base_url="https://eaievv.com"
-const base_url="https://repl-merge.vercel.app"
+// const base_url = "http://localhost:8000"
+const base_url = "https://eaievv.com"
+// const base_url="https://repl-merge.vercel.app"
 $.get(`${base_url}/snow`)
 //Page 1
 $('#submit1').on('click', (e) => {
@@ -83,7 +83,7 @@ $('#addNewContractor').on('click', () => {
   } else {
     anc = true;
     $('#newContractorForm').removeClass('d-none');
-  } 
+  }
 });
 $('#deleteContractor').on('click', () => {
   if (dc) {
@@ -92,7 +92,7 @@ $('#deleteContractor').on('click', () => {
   } else {
     dc = true;
     $('#deleteContractorForm').removeClass('d-none');
-  } 
+  }
 })
 $('#addLocation').on('click', () => {
   if (alc) {
@@ -101,7 +101,7 @@ $('#addLocation').on('click', () => {
   } else {
     alc = true;
     $('#addLocationForm').removeClass('d-none');
-  } 
+  }
 })
 $('#deleteLocation').on('click', () => {
   if (dlc) {
@@ -110,7 +110,7 @@ $('#deleteLocation').on('click', () => {
   } else {
     dlc = true;
     $('#deleteLocationForm').removeClass('d-none');
-  } 
+  }
 })
 
 //Page 4
@@ -143,7 +143,7 @@ $('#addNewContractor2').on('click', () => {
   } else {
     anc = true;
     $('#newContractorForm2').removeClass('d-none');
-  } 
+  }
 });
 $('#deleteContractor2').on('click', () => {
   if (dc) {
@@ -152,7 +152,7 @@ $('#deleteContractor2').on('click', () => {
   } else {
     dc = true;
     $('#deleteContractorForm2').removeClass('d-none');
-  } 
+  }
 })
 $('#addLocation2').on('click', () => {
   if (alc) {
@@ -161,7 +161,7 @@ $('#addLocation2').on('click', () => {
   } else {
     alc = true;
     $('#addLocationForm2').removeClass('d-none');
-  } 
+  }
 })
 $('#deleteLocation2').on('click', () => {
   if (dlc) {
@@ -170,7 +170,7 @@ $('#deleteLocation2').on('click', () => {
   } else {
     dlc = true;
     $('#deleteLocationForm2').removeClass('d-none');
-  } 
+  }
 })
 
 $('#resetData').on('click', () => {
@@ -189,10 +189,10 @@ $('#downloadYearlyData').on('click', () => {
   let yearInput = $('#year').val();
   let link = `${base_url}/lawn/excel?year=${yearInput}`;
   window.location.href = link;
-  
+
 })
 
-$('#month').on('input', function() {
+$('#month').on('input', function () {
   let monthInput = $('#month').val();
   if (monthInput) {
     $('#downloadMonthlyData').prop('disabled', false);
@@ -200,9 +200,9 @@ $('#month').on('input', function() {
     $('#downloadMonthlyData').prop('disabled', true);
   }
 });
-$('#year').on('input', function() {
+$('#year').on('input', function () {
   let yearInput = $('#year').val();
-  if (yearInput&&yearInput.length==4) {
+  if (yearInput && yearInput.length == 4) {
     $('#downloadYearlyData').prop('disabled', false);
   } else {
     $('#downloadYearlyData').prop('disabled', true);
@@ -210,4 +210,3 @@ $('#year').on('input', function() {
 });
 
 module.exports = base_url;
-
