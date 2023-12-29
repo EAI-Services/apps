@@ -35,6 +35,7 @@ app.use(fileUpload());
 app.use(cors([
   'https://repl-merge-8yg7mq7vg-marufbelete.vercel.app',
   'https://eaievv.com',
+  'https://www.eaievv.com',
   // 'https://eaievv.com/subs/1005' ,
   'https://apps-blond.vercel.app',
   // 'http://localhost:7000'
