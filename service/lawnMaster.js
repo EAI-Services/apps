@@ -9,10 +9,11 @@ async function getLawnMasterData() {
         const new_result = result.map(e=>e.dataValues)
         const final_result = new_result.map(resul=>({
             ...resul,
-            locations:resul.locations.map((location) => ({location:location.location}))
+            locations:resul.locations.map((location) => location.location)
         }))
         return final_result
     }
+    console.log(result[0].locations)
     return result
 }
 async function getLawnMasterDataByContractorId(contractorId) {
