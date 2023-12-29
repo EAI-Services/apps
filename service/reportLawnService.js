@@ -55,6 +55,7 @@ async function createExcel(req, res) {
         { header: "Weed Control", key: "weedControl", width: 15 },
     ];
     const arr = await findAllReports();
+    console.log(arr);
     let reports=arr
     
     if(req.query?.year){

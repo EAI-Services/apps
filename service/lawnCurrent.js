@@ -15,6 +15,7 @@ async function getLawnCurrentData() {
     }
     return result
 }
+
 async function getLawnCurrentDataByContractorId(contractorId) {
     const result=await CurrentLawn.findOne({
         where:{contractorId},
@@ -29,6 +30,7 @@ async function getLawnCurrentDataByContractorId(contractorId) {
 return result
         
 }
+
 async function addDataLawnCurrent(data,locations) {
     const lawn_current=await CurrentLawn.create(data)
     const bulk_locations=locations.map(e=>({location:e}))

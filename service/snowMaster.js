@@ -111,7 +111,20 @@ Object.keys(data).forEach((key) => {
         return 
     }
 
-
+    async function getSnowCurrentData() {
+        const result=await CurrentSnow.findAll({include:[Location]})
+        if(result){
+            
+            const new_result = result.map(e=>e.dataValues)
+            const final_result = new_result.map(resul=>({
+                ...resul,
+                locations:resul.locations.map((location) => location.location)
+            }))
+           
+            return final_result
+        }
+        return result
+    }
 module.exports = {
    getSnowMasterData,
    getSnowMasterDataByContractorId,
@@ -120,5 +133,6 @@ module.exports = {
    addLocationSnowMaster,
    deleteLocationSnowMaster,
    fillBulkDataSnowMaster,
-   fillBulkDataSnowCurrent
+   fillBulkDataSnowCurrent,
+   getSnowCurrentData
 }

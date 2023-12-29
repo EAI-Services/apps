@@ -13,7 +13,11 @@ const cron = require('node-cron');
 const Relation = require("./models/relationModel");
 const reportLawnService = require('./service/reportLawnService');
 const reportSnowService = require('./service/reportSnowService');
-const { getSnowMasterData, addDataSnowMaster, deleteSnowMaster, addLocationSnowMaster, deleteLocationSnowMaster, fillBulkDataSnowMaster, fillBulkDataSnowCurrent, getSnowMasterDataByContractorId } = require("./service/snowMaster");
+const { getSnowMasterData, addDataSnowMaster, 
+  deleteSnowMaster, addLocationSnowMaster, 
+  deleteLocationSnowMaster, fillBulkDataSnowMaster,
+   fillBulkDataSnowCurrent, getSnowMasterDataByContractorId,
+   getSnowCurrentData } = require("./service/snowMaster");
 const { getLawnCurrentDataByContractorId, deleteLocationLawnCurrent, getLawnCurrentData, deleteAllLawnCurrent, addBulkDataLawnCurrent, fillBulkDataLawnCurrent } = require("./service/lawnCurrent");
 const { getLawnMasterData, addDataLawnMaster, deleteLocationLawnMaster, deleteLawnMaster, addLocationLawnMaster, fillBulkDataLawnMaster } = require("./service/lawnMaster");
 const app = express();
@@ -245,9 +249,9 @@ app.post('/snow/deleteLocation', async(req, res) => {
   //   if (index > -1) arr.splice(index, 1);
   //   fs.writeFileSync(__dirname + "/data/snow/data.json", JSON.stringify(data, null, 4));
   // }
-  res.status(200).json(data);
+  return res.status(200).json(data);
   } catch (error) {
-    res.json(error.message)
+   return res.json(error.message)
   }
   
 });
@@ -415,7 +419,7 @@ let lawnDataReader = async() => {
   try {
     return await getLawnMasterData();
   } catch (error) {
-    res.json(error.message)
+    return res.json(error.message)
   }
   // let rawdata = fs.readFileSync(__dirname + '/data/lawn/data.json');
   // return JSON.parse(rawdata);
@@ -427,20 +431,44 @@ app.get("/lawn/printCurrent", async(req, res) => {
      // let rawdata = fs.readFileSync(__dirname + '/data/lawn/current.json');
   // let data = JSON.parse(rawdata);
   let data =  await getLawnCurrentData();
-  // console.log(data);
-  res.status(200).json(data);
+  console.log(data);
+  return res.status(200).json(data);
   } catch (error) {
-    res.json(error.message) 
+    return res.json(error.message) 
   }
- 
 });
+
+app.get("/snow/printCurrent", async(req, res) => {
+  try {
+     // let rawdata = fs.readFileSync(__dirname + '/data/lawn/current.json');
+  // let data = JSON.parse(rawdata);
+  let data =  await getSnowCurrentData();
+  console.log(data);
+  return res.status(200).json(data);
+  } catch (error) {
+    return res.json(error.message) 
+  }
+});
+
 app.get("/lawn/printMain", async(req, res) => {
   try {
+    console.log("hello")
     let data = await lawnDataReader();
-    // console.log(data);
-    res.status(200).json(data);
+    console.log(data);
+    return res.status(200).json(data);
   } catch (error) {
-    res.json(error.message)
+    return res.json(error.message)
+  }
+
+});
+
+app.get("/snow/printMain", async(req, res) => {
+  try {
+    let data = await getSnowMasterData();
+    console.log(data);
+    return res.status(200).json(data);
+  } catch (error) {
+    return res.json(error.message)
   }
 
 });
@@ -455,9 +483,9 @@ app.post('/lawn/newContractor', async(req, res) => {
     // fs.writeFileSync(__dirname + "/data/lawn/data.json", JSON.stringify(data, null, 4));
     await addDataLawnMaster({contractorId:id,name},locations)
     let data = await lawnDataReader()
-    res.status(200).json(data);
+    return  res.status(200).json(data);
   } catch (error) {
-    res.json(error.message) 
+    return  res.json(error.message) 
   }
  
 });
@@ -470,9 +498,9 @@ app.post('/lawn/deleteContractor', async(req, res) => {
     let data = await lawnDataReader()
     // delete data[id];
     // fs.writeFileSync(__dirname + "/data/lawn/data.json", JSON.stringify(data, null, 4));
-    res.status(200).json(data);
+    return  res.status(200).json(data);
   } catch (error) {
-    
+    return  res.json(error.message) 
   }
  
 });
@@ -486,9 +514,9 @@ app.post('/lawn/addLocation', async(req, res) => {
     // fs.writeFileSync(__dirname + "/data/lawn/data.json", JSON.stringify(data, null, 4));
     await addLocationLawnMaster(id,name)
     let data = await lawnDataReader()
-    res.status(200).json(data);
+    return res.status(200).json(data);
   } catch (error) {
-    res.json(error.message)
+    return res.json(error.message)
   }
  
 });

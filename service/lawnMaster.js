@@ -3,6 +3,7 @@ const Location = require('../models/locationModel');
 
 async function getLawnMasterData() {
     const result=await MasterLawn.findAll({include:[Location]})
+    // console.log(result)
 
     if(result){
         
@@ -11,9 +12,9 @@ async function getLawnMasterData() {
             ...resul,
             locations:resul.locations.map((location) => location.location)
         }))
+        console.log("last")
         return final_result
     }
-    console.log(result[0].locations)
     return result
 }
 async function getLawnMasterDataByContractorId(contractorId) {

@@ -42,8 +42,8 @@ $('#currentData').on('click', () => {
     html += '<html lang="en-us">';
     html += '<head><title>Current Job Data</title><style></style></head>';
     html += "<body>";
-    html += "<h1 align='center'>Current Job Data</h1>"
-    html += "<h4 align='center'>Locations appearing on this list have NOT been serviced yet this week.</h4>"
+    html += "<h1 align='center'>Current Lawn Job Data</h1>"
+    html += "<h4 align='center'>Locations appearing on this list have NOT been serviced yet.</h4>"
     for (var [k, v] of Object.entries(data)) {
       html += k + '</br><br>'
       for (var [z, x] of Object.entries(v))
@@ -51,31 +51,32 @@ $('#currentData').on('click', () => {
     }
 
     html += "</body>";
-    w.document.write(html);
-    w.document.close();
+    if (w.document) {
+      w.document.write(html);
+      w.document.close();
+    } else {
+      console.error('Window document is null');
+    }
   })
 });
+
 $('#mainData').on('click', () => {
   $.get(`${base_url}/lawn/printMain`, (data) => {
-    var w = window.open();
-
-    var html = "<!DOCTYPE HTML>";
-    html += '<html lang="en-us">';
-    html += '<head><title>Master Job Data</title><style></style></head>';
-    html += "<body>";
-    html += "<h1 align='center'>Master Data</h1>"
-    html += "<h4 align='center'>This is the complete list of all locations pushed out every week.</h4>"
+    var w = window.open(`${window.location.href}/report`);
+    console.log(window.location.href)
+    w.document.write("<!DOCTYPE HTML><html lang='en-us'><head><title>Lawn Master Job Data</title><style></style></head><body><h1 align='center'>Lawn Master Data</h1><h4 align='center'>This is the complete list of all locations pushed out every week.</h4>");
     for (var [k, v] of Object.entries(data)) {
-      html += k + '</br><br>'
+      w.document.write(k + '</br><br>');
+      console.log(k,v);
       for (var [z, x] of Object.entries(v))
-        html += z + ' : ' + x + '</br><br>'
+        w.document.write(z + ' : ' + x + '</br><br>');
     }
-
-    html += "</body>";
-    w.document.write(html);
+    w.document.write("</body></html>");
     w.document.close();
   })
 });
+
+
 $('#addNewContractor').on('click', () => {
   if (anc) {
     anc = false;
@@ -114,6 +115,49 @@ $('#deleteLocation').on('click', () => {
 })
 
 //Page 4
+$('#currentSnowData').on('click', () => {
+  $.get(`${base_url}/snow/printCurrent`, (data) => {
+    var w = window.open();
+
+    var html = "<!DOCTYPE HTML>";
+    html += '<html lang="en-us">';
+    html += '<head><title>Current Snow Job Data</title><style></style></head>';
+    html += "<body>";
+    html += "<h1 align='center'>Current Snow Job Data</h1>"
+    html += "<h4 align='center'>Locations appearing on this list have NOT been serviced yet.</h4>"
+    for (var [k, v] of Object.entries(data)) {
+      html += k + '</br><br>'
+      for (var [z, x] of Object.entries(v))
+        html += z + ' : ' + x + '</br><br>'
+    }
+
+    html += "</body>";
+    w.document.write(html);
+    w.document.close();
+  })
+});
+$('#mainSnowData').on('click', () => {
+  $.get(`${base_url}/snow/printData`, (data) => {
+    var w = window.open();
+
+    var html = "<!DOCTYPE HTML>";
+    html += '<html lang="en-us">';
+    html += '<head><title>Current Job Data</title><style></style></head>';
+    html += "<body>";
+    html += "<h1 align='center'>Snow Removal Master Data</h1>"
+    html += "<h4 align='center'>This is the data for the EAI Mobile Snow Removal application.</h4>"
+    for (var [k, v] of Object.entries(data)) {
+      html += k + '</br><br>'
+      for (var [z, x] of Object.entries(v))
+        html += z + ' : ' + x + '</br><br>'
+    }
+
+    html += "</body>";
+    w.document.write(html);
+    w.document.close();
+  })
+});
+
 $('#snowData').on('click', () => {
   $.get(`${base_url}/snow/printData`, (data) => {
     var w = window.open();
@@ -187,7 +231,20 @@ $('#downloadMonthlyData').on('click', () => {
 
 $('#downloadYearlyData').on('click', () => {
   let yearInput = $('#year').val();
-  let link = `${base_url}/lawn/excel?year=${yearInput}`;
+  let link = `${base_url}/snow/excel?year=${yearInput}`;
+  window.location.href = link;
+  
+})
+$('#downloadMonthlySnowData').on('click', () => {
+  let monthInput = $('#snowmonth').val();
+  var link = `${base_url}/snow/excel?month=${monthInput}`;
+  window.location.href = link;
+
+})
+
+$('#downloadYearlySnowData').on('click', () => {
+  let yearInput = $('#snowyear').val();
+  let link = `${base_url}/snow/excel?year=${yearInput}`;
   window.location.href = link;
   
 })
@@ -206,6 +263,23 @@ $('#year').on('input', function() {
     $('#downloadYearlyData').prop('disabled', false);
   } else {
     $('#downloadYearlyData').prop('disabled', true);
+  }
+});
+
+$('#snowmonth').on('input', function() {
+  let monthInput = $('#snowmonth').val();
+  if (monthInput) {
+    $('#downloadMonthlySnowData').prop('disabled', false);
+  } else {
+    $('#downloadMonthlySnowData').prop('disabled', true);
+  }
+});
+$('#snowyear').on('input', function() {
+  let yearInput = $('#snowyear').val();
+  if (yearInput&&yearInput.length==4) {
+    $('#downloadYearlySnowData').prop('disabled', false);
+  } else {
+    $('#downloadYearlySnowData').prop('disabled', true);
   }
 });
 
