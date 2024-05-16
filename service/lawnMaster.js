@@ -32,9 +32,11 @@ async function getLawnMasterDataByContractorId(contractorId) {
 }
 async function addDataLawnMaster(data,locations) {
     const lawn_master=await MasterLawn.create(data)
+    if(locations&&locations.length>0){
     const bulk_locations=locations.map(e=>({location:e}))
     const location_added=await Location.bulkCreate(bulk_locations)
     await lawn_master.addLocations(location_added)
+    }
     return 
 }
 

@@ -1,25 +1,45 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const nodemailer = require("nodemailer");
-const fileUpload = require('express-fileupload');
+const fileUpload = require("express-fileupload");
 // const jsonData = require('./data/snow/data.json');
-const fs = require('fs');
-const sharp = require('sharp');
+const fs = require("fs");
+const sharp = require("sharp");
 require("dotenv").config();
 const sequelize = require("./database/db");
-const DotJson = require('dot-json');
-const cors = require('cors')
-const cron = require('node-cron');
+const DotJson = require("dot-json");
+const cors = require("cors");
+const cron = require("node-cron");
 const Relation = require("./models/relationModel");
-const reportLawnService = require('./service/reportLawnService');
-const reportSnowService = require('./service/reportSnowService');
-const { getSnowMasterData, addDataSnowMaster, 
-  deleteSnowMaster, addLocationSnowMaster, 
-  deleteLocationSnowMaster, fillBulkDataSnowMaster,
-   fillBulkDataSnowCurrent, getSnowMasterDataByContractorId,
-   getSnowCurrentData } = require("./service/snowMaster");
-const { getLawnCurrentDataByContractorId, deleteLocationLawnCurrent, getLawnCurrentData, deleteAllLawnCurrent, addBulkDataLawnCurrent, fillBulkDataLawnCurrent } = require("./service/lawnCurrent");
-const { getLawnMasterData, addDataLawnMaster, deleteLocationLawnMaster, deleteLawnMaster, addLocationLawnMaster, fillBulkDataLawnMaster } = require("./service/lawnMaster");
+const reportLawnService = require("./service/reportLawnService");
+const reportSnowService = require("./service/reportSnowService");
+const {
+  getSnowMasterData,
+  addDataSnowMaster,
+  deleteSnowMaster,
+  addLocationSnowMaster,
+  deleteLocationSnowMaster,
+  fillBulkDataSnowMaster,
+  fillBulkDataSnowCurrent,
+  getSnowMasterDataByContractorId,
+  getSnowCurrentData,
+} = require("./service/snowMaster");
+const {
+  getLawnCurrentDataByContractorId,
+  deleteLocationLawnCurrent,
+  getLawnCurrentData,
+  deleteAllLawnCurrent,
+  addBulkDataLawnCurrent,
+  fillBulkDataLawnCurrent,
+} = require("./service/lawnCurrent");
+const {
+  getLawnMasterData,
+  addDataLawnMaster,
+  deleteLocationLawnMaster,
+  deleteLawnMaster,
+  addLocationLawnMaster,
+  fillBulkDataLawnMaster,
+} = require("./service/lawnMaster");
 const app = express();
 const mail = nodemailer.createTransport({
   service: "gmail",
@@ -29,17 +49,20 @@ const mail = nodemailer.createTransport({
   },
 });
 
-let rq = 0, mailOptions;
+let rq = 0,
+  mailOptions;
 
 app.use(fileUpload());
-app.use(cors([
-  'https://repl-merge-8yg7mq7vg-marufbelete.vercel.app',
-  'https://eaievv.com',
-  'https://www.eaievv.com',
-  // 'https://eaievv.com/subs/1005' ,
-  'https://apps-blond.vercel.app',
-  // 'http://localhost:7000'
-]))
+app.use(
+  cors([
+    "https://repl-merge-8yg7mq7vg-marufbelete.vercel.app",
+    "https://eaievv.com",
+    "https://www.eaievv.com",
+    // 'https://eaievv.com/subs/1005' ,
+    "https://apps-blond.vercel.app",
+    // 'http://localhost:7000'
+  ])
+);
 app.use(express.static("public"));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
@@ -56,16 +79,14 @@ app.use((req, res, next) => {
 //----------*******-----------
 //--------App Routes----------
 //----------*******-----------
-Relation()
+Relation();
 async function compressImages(imagePath) {
-    try {
-      const compressedImageBuffer = await sharp(imagePath)
-        .resize()
-        .toBuffer();
-        return compressedImageBuffer.toString('base64');
-    } catch (error) {
-      console.error(`Error compressing image ${imagePath}: ${error.message}`);
-    }
+  try {
+    const compressedImageBuffer = await sharp(imagePath).resize().toBuffer();
+    return compressedImageBuffer.toString("base64");
+  } catch (error) {
+    console.error(`Error compressing image ${imagePath}: ${error.message}`);
+  }
 }
 
 app.get("/", (req, res) => {
@@ -81,22 +102,21 @@ app.get("/snow", (req, res) => {
 });
 
 app.get("/snow/login/:pw", (req, res) => {
-  let pw = req.params.pw
-  if (pw === process.env.PW) res.send('success')
-  else res.send('failure')
+  let pw = req.params.pw;
+  if (pw === process.env.PW) res.send("success");
+  else res.send("failure");
 });
 
-app.get("/snow/subs/:subNum", async(req, res) => {
+app.get("/snow/subs/:subNum", async (req, res) => {
   try {
     let subNum = req.params.subNum;
-  // let response = jsonData[subNum];
-  let response = await getSnowMasterDataByContractorId(subNum);
-  console.log(response)
-  res.status(200).json(response);
+    // let response = jsonData[subNum];
+    let response = await getSnowMasterDataByContractorId(subNum);
+    console.log(response);
+    res.status(200).json(response);
   } catch (error) {
-    res.json(error.message)
+    res.json(error.message);
   }
-  
 });
 
 app.post("/snow/data", (req, res) => {
@@ -121,41 +141,53 @@ app.post("/snow/data", (req, res) => {
       Shoveled Sidewalks : ${r.shoveledSidewalks}
       Snow Amount : ${r.snow}`;
   } catch (error) {
-    res.json(error.message)
+    res.json(error.message);
   }
 });
 
-app.post('/snow/uploadFiles', function(req, res) {
+app.post("/snow/uploadFiles", function (req, res) {
   if (!req.files || Object.keys(req.files).length === 0) {
-    console.log('NO FILES!!!');
+    console.log("NO FILES!!!");
   }
   let file = req.files.file;
-  file.name = `Pic` + rq
-  file.mv(`./public/snow/images/Pic${rq}.jpg`, function(err) {
+  file.name = `Pic` + rq;
+  file.mv(`./public/snow/images/Pic${rq}.jpg`, function (err) {
     if (err) console.log(err);
-    console.log('File uploaded!');
+    console.log("File uploaded!");
   });
-  rq++
+  rq++;
 });
 
-app.get('/snow/mail', async function(req, res) {
+app.get("/snow/mail", async function (req, res) {
   let picArr = mailOptions.attachments;
-  picArr[0] = { filename: 'image1.jpg', content: await compressImages('./public/snow/images/Pic0.jpg') };
-  picArr[1] = { filename: 'image2.jpg', content: await compressImages('./public/snow/images/Pic1.jpg') };
-  picArr[2] = { filename: 'image3.jpg', content: await compressImages('./public/snow/images/Pic2.jpg') };
-  picArr[3] = { filename: 'image4.jpg', content: await compressImages('./public/snow/images/Pic3.jpg') };
+  picArr[0] = {
+    filename: "image1.jpg",
+    content: await compressImages("./public/snow/images/Pic0.jpg"),
+  };
+  picArr[1] = {
+    filename: "image2.jpg",
+    content: await compressImages("./public/snow/images/Pic1.jpg"),
+  };
+  picArr[2] = {
+    filename: "image3.jpg",
+    content: await compressImages("./public/snow/images/Pic2.jpg"),
+  };
+  picArr[3] = {
+    filename: "image4.jpg",
+    content: await compressImages("./public/snow/images/Pic3.jpg"),
+  };
   sendmail();
   rq = 0;
 });
 
-app.get('/snow/excel', reportSnowService.createExcel);
+app.get("/snow/excel", reportSnowService.createExcel);
 
 //----------*******-----------
 //--------Server Fn's---------
 //----------*******-----------
 
 function sendmail() {
-  mail.sendMail(mailOptions, function(error, info) {
+  mail.sendMail(mailOptions, function (error, info) {
     if (error) {
       console.log(error);
     } else {
@@ -167,98 +199,89 @@ function sendmail() {
 //----------*******-----------
 //-------Admin Routes---------
 //----------*******-----------
-let snowDataReader = async() => {
+let snowDataReader = async () => {
   try {
     let rawdata = await getSnowMasterData();
     return rawdata;
   } catch (error) {
-    res.json(error.message)
+    res.json(error.message);
   }
   // let rawdata = fs.readFileSync(__dirname + '/data/snow/data.json');
   // return JSON.parse(rawdata);
- 
 };
 
 app.get("/admin", (req, res) => {
   res.sendFile(__dirname + "/views/admin/index.html");
 });
 
-app.get("/snow/printData", async(req, res) => {
+app.get("/snow/printData", async (req, res) => {
   try {
-    let data = await snowDataReader()
+    let data = await snowDataReader();
     res.status(200).json(data);
   } catch (error) {
-    res.json(error.message)
+    res.json(error.message);
   }
- 
 });
 
-app.post('/snow/newContractor', async(req, res) => {
+app.post("/snow/newContractor", async (req, res) => {
   try {
     let id = req.body.contractorID;
     let name = req.body.contractor;
-    let locations = req.body.locations.split(', ');
+    let locations = req.body.locations.split(", ");
     // let newEntry = { name: name, locations: locations };
     // data[id] = newEntry;
-    await addDataSnowMaster({contractorId:id,name},locations)
+    await addDataSnowMaster({ contractorId: id, name }, locations);
     // fs.writeFileSync(__dirname + "/data/snow/data.json", JSON.stringify(data, null, 4));
-    let data = await snowDataReader()
+    let data = await snowDataReader();
     res.status(200).json(data);
   } catch (error) {
-    res.json(error.message) 
+    res.json(error.message);
   }
-
 });
 
-app.post('/snow/deleteContractor', async(req, res) => {
+app.post("/snow/deleteContractor", async (req, res) => {
   try {
     let id = req.body.id;
-  await deleteSnowMaster(id)
-  // delete data[id];
-  // fs.writeFileSync(__dirname + "/data/snow/data.json", JSON.stringify(data, null, 4));
-  let data = await snowDataReader()
-  res.status(200).json(data);
+    await deleteSnowMaster(id);
+    // delete data[id];
+    // fs.writeFileSync(__dirname + "/data/snow/data.json", JSON.stringify(data, null, 4));
+    let data = await snowDataReader();
+    res.status(200).json(data);
   } catch (error) {
-    res.json(error.message)
+    res.json(error.message);
   }
-  
 });
-app.post('/snow/addLocation', async(req, res) => {
+app.post("/snow/addLocation", async (req, res) => {
   try {
     let id = req.body.id;
     let name = req.body.name;
-    await addLocationSnowMaster(id,name)
+    await addLocationSnowMaster(id, name);
     // if (data[id] && data[id].locations) data[id].locations.push(name);
     // fs.writeFileSync(__dirname + "/data/snow/data.json", JSON.stringify(data, null, 4));
-    let data =await snowDataReader()
+    let data = await snowDataReader();
     res.status(200).json(data);
   } catch (error) {
-    res.json(error.message)
+    res.json(error.message);
   }
-
 });
-app.post('/snow/deleteLocation', async(req, res) => {
+app.post("/snow/deleteLocation", async (req, res) => {
   try {
     let id = req.body.id;
-  let name = req.body.name;
-  console.log(id)
-  await deleteLocationSnowMaster(id,name)
-  let data = await snowDataReader()
-  // if (data[id]) {
-  //   let arr = data[id].locations;
-  //   let index = arr.indexOf(name);
-  //   if (index > -1) arr.splice(index, 1);
-  //   fs.writeFileSync(__dirname + "/data/snow/data.json", JSON.stringify(data, null, 4));
-  // }
-  return res.status(200).json(data);
+    let name = req.body.name;
+    console.log(id);
+    await deleteLocationSnowMaster(id, name);
+    let data = await snowDataReader();
+    // if (data[id]) {
+    //   let arr = data[id].locations;
+    //   let index = arr.indexOf(name);
+    //   if (index > -1) arr.splice(index, 1);
+    //   fs.writeFileSync(__dirname + "/data/snow/data.json", JSON.stringify(data, null, 4));
+    // }
+    return res.status(200).json(data);
   } catch (error) {
-   return res.json(error.message)
+    return res.json(error.message);
   }
-  
 });
-
-
-
 
 //merged
 // const mail = nodemailer.createTransport({
@@ -271,7 +294,6 @@ app.post('/snow/deleteLocation', async(req, res) => {
 
 // let rq = 0, mailOptions;
 
-
 //----------*******-----------
 //--------App Routes----------
 //----------*******-----------
@@ -279,26 +301,25 @@ app.get("/lawn", (req, res) => {
   res.sendFile(__dirname + "/views/lawn/index.html");
 });
 
-app.get("/lawn/subs/:subNum", async(req, res) => {
+app.get("/lawn/subs/:subNum", async (req, res) => {
   try {
     let subNum = req.params.subNum;
-  // let rawdata = fs.readFileSync(__dirname + '/data/lawn/current.json');
-  // let data = JSON.parse(rawdata);
-  // let response = data[subNum];
-  let response = await getLawnCurrentDataByContractorId(subNum);
-  // console.log(response.locations)
-  res.status(200).json(response);
+    // let rawdata = fs.readFileSync(__dirname + '/data/lawn/current.json');
+    // let data = JSON.parse(rawdata);
+    // let response = data[subNum];
+    let response = await getLawnCurrentDataByContractorId(subNum);
+    // console.log(response.locations)
+    res.status(200).json(response);
   } catch (error) {
-    res.json(error.message)
+    res.json(error.message);
   }
-  
 });
 
 app.get("/lawn/manual", (req, res) => {
-  manual()
-})
+  manual();
+});
 
-app.post("/lawn/data", async(req, res) => {
+app.post("/lawn/data", async (req, res) => {
   try {
     mailOptions = {
       attachments: [],
@@ -326,26 +347,25 @@ app.post("/lawn/data", async(req, res) => {
     //   let index = locsArr.indexOf(r.location);
     // locsArr.splice(index, 1);
     //   console.log (locsArr)
-    //  fs.writeFileSync(__dirname + "/data/lawn/current.json", 
+    //  fs.writeFileSync(__dirname + "/data/lawn/current.json",
     // JSON.stringify(data, null, 4));
     // console.log(JSON.stringify(data, null, 4))
-    await deleteLocationLawnCurrent(r.subNum,r.location)
+    // await deleteLocationLawnCurrent(r.subNum, r.location);
   } catch (error) {
-    res.json(error.message)
+    res.json(error.message);
   }
-  
 });
 
-app.post('/lawn/uploadFiles', function(req, res) {
+app.post("/lawn/uploadFiles", function (req, res) {
   if (!req.files || Object.keys(req.files).length === 0) {
-    console.log('NO FILES!!!');
-  };
+    console.log("NO FILES!!!");
+  }
   let file = req.files.file;
   file.name = `Pic` + rq;
-  file.mv(`./public/lawn/images/Pic${rq}.jpg`, function(err) {
+  file.mv(`./public/lawn/images/Pic${rq}.jpg`, function (err) {
     if (err) console.log(err);
   });
-  rq++
+  rq++;
 });
 
 // app.get('/mail', function(req, res) {
@@ -358,206 +378,209 @@ app.post('/lawn/uploadFiles', function(req, res) {
 //   rq = 0;
 // });
 
-app.get('/lawn/excel', reportLawnService.createExcel);
+app.get("/lawn/excel", reportLawnService.createExcel);
 
 //----------*******-----------
 //--------Server Fn's---------
 //----------*******-----------
 
-
-
 //SCHEDULER
-cron.schedule('55 23 * * 0', () => {
-  manual();
-}, {
+cron.schedule(
+  "55 23 * * 0",
+  () => {
+    manual();
+  },
+  {
     scheduled: true,
-    timezone: "America/Chicago"
+    timezone: "America/Chicago",
   }
 );
-cron.schedule('57 23 * * 0', () => {
-  manual();
-}, {
+cron.schedule(
+  "57 23 * * 0",
+  () => {
+    manual();
+  },
+  {
     scheduled: true,
-    timezone: "America/Chicago"
+    timezone: "America/Chicago",
   }
 );
-cron.schedule('59 23 * * 0', () => {
-  manual();
-}, {
+cron.schedule(
+  "59 23 * * 0",
+  () => {
+    manual();
+  },
+  {
     scheduled: true,
-    timezone: "America/Chicago"
+    timezone: "America/Chicago",
   }
 );
-
 
 async function manual() {
-  try{
-  let theDate = new Date().toString()
-  console.log('CRON JOB RAN AT ' + theDate)
-  // let mainData = JSON.parse(fs.readFileSync(__dirname + "/data/lawn/data.json"));
-  let mainData = await getLawnMasterData()
-  await deleteAllLawnCurrent()
-  await addBulkDataLawnCurrent(mainData)
-  // fs.writeFileSync(__dirname + "/data/lawn/current.json", JSON.stringify(mainData, null, 4));
-  let mailOptions = {
-    attachments: [],
-    from: process.env.FROM,
-    to: "jdbriggs81@gmail.com",
-    subject: "EAI Cron Job Ran",
-    text: `The EAI cron job ran at ${theDate}`,
-  };
-  sendmail(mailOptions).then(e=>e).catch(e=>e)
-}
-  catch (error) {
-    console.log(error.message)
+  try {
+    let theDate = new Date().toString();
+    console.log("CRON JOB RAN AT " + theDate);
+    // let mainData = JSON.parse(fs.readFileSync(__dirname + "/data/lawn/data.json"));
+    let mainData = await getLawnMasterData();
+    await deleteAllLawnCurrent();
+    await addBulkDataLawnCurrent(mainData);
+    // fs.writeFileSync(__dirname + "/data/lawn/current.json", JSON.stringify(mainData, null, 4));
+    let mailOptions = {
+      attachments: [],
+      from: process.env.FROM,
+      to: "jdbriggs81@gmail.com",
+      subject: "EAI Cron Job Ran",
+      text: `The EAI cron job ran at ${theDate}`,
+    };
+    sendmail(mailOptions)
+      .then((e) => e)
+      .catch((e) => e);
+  } catch (error) {
+    console.log(error.message);
   }
 }
 
 //----------*******-----------
 //-------Admin Routes---------
 //----------*******-----------
-let lawnDataReader = async() => {
+let lawnDataReader = async () => {
   try {
     return await getLawnMasterData();
   } catch (error) {
-    return res.json(error.message)
+    return res.json(error.message);
   }
   // let rawdata = fs.readFileSync(__dirname + '/data/lawn/data.json');
   // return JSON.parse(rawdata);
-
 };
 
-app.get("/lawn/printCurrent", async(req, res) => {
+app.get("/lawn/printCurrent", async (req, res) => {
   try {
-     // let rawdata = fs.readFileSync(__dirname + '/data/lawn/current.json');
-  // let data = JSON.parse(rawdata);
-  let data =  await getLawnCurrentData();
-  console.log(data);
-  return res.status(200).json(data);
+    // let rawdata = fs.readFileSync(__dirname + '/data/lawn/current.json');
+    // let data = JSON.parse(rawdata);
+    console.log('current data')
+    let data = await getLawnCurrentData();
+    console.log(data);
+    return res.status(200).json(data);
   } catch (error) {
-    return res.json(error.message) 
+    return res.json(error.message);
   }
 });
 
-app.get("/snow/printCurrent", async(req, res) => {
+app.get("/snow/printCurrent", async (req, res) => {
   try {
-     // let rawdata = fs.readFileSync(__dirname + '/data/lawn/current.json');
-  // let data = JSON.parse(rawdata);
-  let data =  await getSnowCurrentData();
-  console.log(data);
-  return res.status(200).json(data);
+    // let rawdata = fs.readFileSync(__dirname + '/data/lawn/current.json');
+    // let data = JSON.parse(rawdata);
+    let data = await getSnowCurrentData();
+    console.log(data);
+    return res.status(200).json(data);
   } catch (error) {
-    return res.json(error.message) 
+    return res.json(error.message);
   }
 });
 
-app.get("/lawn/printMain", async(req, res) => {
+app.get("/lawn/printMain", async (req, res) => {
   try {
-    console.log("hello")
+    console.log("hello");
     let data = await lawnDataReader();
     console.log(data);
     return res.status(200).json(data);
   } catch (error) {
-    return res.json(error.message)
+    return res.json(error.message);
   }
-
 });
 
-app.get("/snow/printMain", async(req, res) => {
+app.get("/snow/printMain", async (req, res) => {
   try {
     let data = await getSnowMasterData();
     console.log(data);
     return res.status(200).json(data);
   } catch (error) {
-    return res.json(error.message)
+    return res.json(error.message);
   }
-
 });
 
-app.post('/lawn/newContractor', async(req, res) => {
+app.post("/lawn/newContractor", async (req, res) => {
   try {
     let id = req.body.contractorID;
     let name = req.body.contractor;
-    let locations = req.body.locations.split(', ');
+    let locations = req.body.locations.split(", ");
     // let newEntry = { name: name, locations: locations };
     // data[id] = newEntry;
     // fs.writeFileSync(__dirname + "/data/lawn/data.json", JSON.stringify(data, null, 4));
-    await addDataLawnMaster({contractorId:id,name},locations)
-    let data = await lawnDataReader()
-    return  res.status(200).json(data);
-  } catch (error) {
-    return  res.json(error.message) 
-  }
- 
-});
-
-app.post('/lawn/deleteContractor', async(req, res) => {
-  try {
-    let id = req.body.id;
-
-    await deleteLawnMaster(id)
-    let data = await lawnDataReader()
-    // delete data[id];
-    // fs.writeFileSync(__dirname + "/data/lawn/data.json", JSON.stringify(data, null, 4));
-    return  res.status(200).json(data);
-  } catch (error) {
-    return  res.json(error.message) 
-  }
- 
-});
-
-app.post('/lawn/addLocation', async(req, res) => {
-  try {
-    let id = req.body.id;
-    let name = req.body.name;
-  
-    // if (data[id] && data[id].locations) data[id].locations.push(name);
-    // fs.writeFileSync(__dirname + "/data/lawn/data.json", JSON.stringify(data, null, 4));
-    await addLocationLawnMaster(id,name)
-    let data = await lawnDataReader()
+    await addDataLawnMaster({ contractorId: id, name }, locations);
+    let data = await lawnDataReader();
     return res.status(200).json(data);
   } catch (error) {
-    return res.json(error.message)
+    return res.json(error.message);
   }
- 
 });
 
-app.post('/lawn/deleteLocation', async(req, res) => {
+app.post("/lawn/deleteContractor", async (req, res) => {
+  try {
+    let id = req.body.id;
+    await deleteLawnMaster(id);
+    let data = await lawnDataReader();
+    // delete data[id];
+    // fs.writeFileSync(__dirname + "/data/lawn/data.json", JSON.stringify(data, null, 4));
+    return res.status(200).json(data);
+  } catch (error) {
+    return res.json(error.message);
+  }
+});
+
+app.post("/lawn/addLocation", async (req, res) => {
   try {
     let id = req.body.id;
     let name = req.body.name;
-   
+console.log(req.body)
+    // if (data[id] && data[id].locations) data[id].locations.push(name);
+    // fs.writeFileSync(__dirname + "/data/lawn/data.json", JSON.stringify(data, null, 4));
+    await addLocationLawnMaster(id, name);
+    let data = await lawnDataReader();
+    return res.status(200).json(data);
+  } catch (error) {
+    return res.json(error.message);
+  }
+});
+
+app.post("/lawn/deleteLocation", async (req, res) => {
+  try {
+    let id = req.body.id;
+    let name = req.body.name;
+
     // if (data[id]) {
     //   let arr = data[id].locations;
     //   let index = arr.indexOf(name);
     //   if (index > -1) arr.splice(index, 1);
     //   fs.writeFileSync(__dirname + "/data/lawn/data.json", JSON.stringify(data, null, 4));
     // }
-    await deleteLocationLawnMaster(id,name)
-    let data = await lawnDataReader()
+    await deleteLocationLawnMaster(id, name);
+    let data = await lawnDataReader();
     res.status(200).json(data);
   } catch (error) {
-    res.json(error.message)
+    res.json(error.message);
   }
- 
 });
 
 app.get("*", (req, res) => {
-  res.redirect('/');
+  res.redirect("/");
 });
 // listen for requests :)
-sequelize.sync().then(async(result)=>{
-  // let lawnCurrent = fs.readFileSync(__dirname + '/data/lawn/current.json');
-  // await fillBulkDataLawnCurrent(lawnCurrent)
-  // let lawnMaster = fs.readFileSync(__dirname + '/data/lawn/data.json');
-  // await fillBulkDataLawnMaster(lawnMaster)
-  // let snowMaster = fs.readFileSync(__dirname + '/data/snow/data.json');
-  // await fillBulkDataSnowMaster(snowMaster)
-  // let snowCurrent = fs.readFileSync(__dirname + '/data/snow/current.json');
-  // await fillBulkDataSnowCurrent(snowCurrent)
-}).catch(error=>{
-  console.log(error)
-})
+sequelize
+  .sync()
+  .then(async (result) => {
+    // let lawnCurrent = fs.readFileSync(__dirname + '/data/lawn/current.json');
+    // await fillBulkDataLawnCurrent(lawnCurrent)
+    // let lawnMaster = fs.readFileSync(__dirname + '/data/lawn/data.json');
+    // await fillBulkDataLawnMaster(lawnMaster)
+    // let snowMaster = fs.readFileSync(__dirname + '/data/snow/data.json');
+    // await fillBulkDataSnowMaster(snowMaster)
+    // let snowCurrent = fs.readFileSync(__dirname + '/data/snow/current.json');
+    // await fillBulkDataSnowCurrent(snowCurrent)
+  })
+  .catch((error) => {
+    console.log(error);
+  });
 const listener = app.listen(process.env.PORT, () => {
   console.log("Your app is listening on port " + listener.address().port);
 });

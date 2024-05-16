@@ -2,7 +2,6 @@ const ExcelJS = require('exceljs');
 const reportModel = require('../models/lawncareModel');
 
 function createReport(data) {
-    console.log(data)
     const now = new Date().toISOString().slice(0, 19).replace('T', ' ');
     data.createdAt = now;
     data.updatedAt = now;

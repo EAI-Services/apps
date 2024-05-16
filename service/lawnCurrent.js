@@ -40,8 +40,12 @@ async function addDataLawnCurrent(data,locations) {
 }
 
 async function addBulkDataLawnCurrent(data) {
+    const mappedData=data.map(e=>({...e,locations:e.locations.map(e=>({location:e}))}))
+    // console.log(data)
+    // console.log(mappedData[0].locations)
     
-     await CurrentLawn.bulkCreate(data,{
+    // stop
+     await CurrentLawn.bulkCreate(mappedData,{
         include:[Location],
         ignoreDuplicates: true
     })
