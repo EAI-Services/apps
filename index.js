@@ -503,7 +503,7 @@ app.post("/lawn/newContractor", async (req, res) => {
   try {
     let id = req.body.contractorID;
     let name = req.body.contractor;
-    let locations = req.body.locations.split(", ");
+    let locations = req.body.locations?req.body.locations.split(", "):[];
     // let newEntry = { name: name, locations: locations };
     // data[id] = newEntry;
     // fs.writeFileSync(__dirname + "/data/lawn/data.json", JSON.stringify(data, null, 4));
@@ -511,6 +511,7 @@ app.post("/lawn/newContractor", async (req, res) => {
     let data = await lawnDataReader();
     return res.status(200).json(data);
   } catch (error) {
+    console.log(error)
     return res.json(error.message);
   }
 });
